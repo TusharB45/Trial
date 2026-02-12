@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>GIS Portfolio Globe</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000000;
+  }
+  #globeViz {
+    width: 100vw;
+    height: 100vh;
+  }
+</style>
+</head>
+<body>
+  <div id="globeViz"></div>
+
+  <script src="https://unpkg.com/globe.gl"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+
+  <script>
+    // 1) Create blue ocean texture
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#3a76c2'; // ocean color
+    ctx.fillRect(0, 0, 512, 512);
+
+    const globe = Globe()(document.getElementById('globeViz'))
+      .globeImageUrl(canvas.toDataURL())
+      .backgroundColor('#000000')
+
+      // Country style like your image
+      .polygonAltitude(() => 0.02)
+      .polygonCapColor(() => {
+        const colors = ['#c9d6ff','#d7f3c6','#f3d6c6','#f3f1c6','#d6f0ff'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      })
+      .polygonSideColor(() => 'rgba(0,0,0,0.18)')
+      .polygonStrokeColor(() => '#000000')
+
+      // Disable hover
+      .enablePointerInteraction(false)
+
+      // Atmosphere off (clean look)
+      .showAtmosphere(false);
+
+    // Set camera position
+    globe.pointOfView({ lat: 20, lng: -30, altitude: 2.6 }, 0);
+
+    // Controls
+    const controls = globe.controls();
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.enableRotate = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.25;
+
+    // Lock zoom distance
+    const camera = globe.camera();
+    const lockedDistance = camera.position.length();
+    controls.minDistance = lockedDistance;
+    controls.maxDistance = lockedDistance;
+
+    // Prevent distance changes
+    controls.addEventListener('change', () => {
+      camera.position.setLength(lockedDistance);
+    });
+
+    // Add grid lines (latitude + longitude)
+    function addGridLines() {
+      const radius = globe.globeRadius();
+      const segments = 64;
+      const material = new THREE.LineBasicMaterial({ color: '#000000', opacity: 0.35, transparent: true });
+      const geometry = new THREE.BufferGeometry();
+
+      const vertices = [];
+
+      // longitude lines
+      for (let lon = -180; lon <= 180; lon += 15) {
+        for (let lat = -90; lat <= 90; lat += 2) {
+          const phi = (90 - lat) * Math.PI / 180;
+          const theta = (lon + 180) * Math.PI / 180;
+          const x = -radius * Math.sin(phi) * Math.cos(theta);
+          const y = radius * Math.cos(phi);
+          const z = radius * Math.sin(phi) * Math.sin(theta);
+          vertices.push(x, y, z);
+        }
+      }
+
+      // latitude lines
+      for (let lat = -90; lat <= 90; lat += 15) {
+        for (let lon = -180; lon <= 180; lon += 2) {
+          const phi = (90 - lat) * Math.PI / 180;
+          const theta = (lon + 180) * Math.PI / 180;
+          const x = -radius * Math.sin(phi) * Math.cos(theta);
+          const y = radius * Math.cos(phi);
+          const z = radius * Math.sin(phi) * Math.sin(theta);
+          vertices.push(x, y, z);
+        }
+      }
+
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+      const lines = new THREE.LineSegments(geometry, material);
+      globe.scene().add(lines);
+    }
+
+    // load countries
+    fetch('https://unpkg.com/world-atlas@2/countries-110m.json')
+      .then(res => res.json())
+      .then(world => {
+        const countries = topojson.feature(world, world.objects.countries).features;
+        globe.polygonsData(countries);
+        addGridLines();
+      });
+  </script>
+</body>
+</html>

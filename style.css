@@ -1,0 +1,44 @@
+    /* =========================
+       GLOBAL STYLES
+    ========================= */
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #FAFAFA;
+        color: #111111;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    /* =========================
+       PAGE CONTAINER
+    ========================= */
+    .page-container {
+        width: 1200px;
+        max-width: 1200px;
+        min-width: 300px;
+        margin: 0 auto;
+        padding: 40px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+    .contact-header {
+        font-size: 56px; /* 3.5rem */
+        font-weight: 300;
+        letter-spacing: 2.1px;
+        line-height: 1.2;
+        color: #111111;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 80px;
+    }
+  

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tushar Borse</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600&family=M+PLUS+1+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ---------- General Styles ---------- */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inconsolata', 'M PLUS 1 Code', monospace;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header.navbar {
+      position: sticky;
+      top: 0;
+      font-size: 2.5rem;
+      padding: 40px 50px;
+      font-weight: 600;
+      background-color: #000;
+      z-index: 999;
+    }
+
+    @media (max-width: 768px) {
+      header.navbar {
+        font-size: 2.2rem;
+        padding: 15px 20px;
+      }
+    }
+
+    .page-container {
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 140px;
+    }
+
+    /* ---------- Main White Box ---------- */
+    .dark-blue-box {
+      width: 100%;
+      flex: 1;
+      min-height: 780px;
+      background-color: #121212;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+    }
+
+    .dark-blue-heading {
+      color: #E0FFFF;
+      font-size: 2rem;
+      margin: 0 0 20px 0;
+      padding-left: 10px;
+      font-weight: 600;
+    }
+
+    .white-box {
+      flex: 1;
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      display: flex;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid #333;
+      position: relative;
+    }
+
+    .white-part {
+      background-color: #fff;
+      flex: 1;
+      padding: 60px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #000;
+    }
+
+    .black-part {
+      background-color: #000;
+      flex: 3;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 8px;
+      border: 6px solid #777;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .tagline {
+      font-weight: 400;
+      font-size: 3rem;
+      line-height: 1.4;
+      color: #fff;
+      margin-top: 4px;
+      margin-left: 10px;
+      max-width: 700px;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 12px;
+      text-decoration-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding: 12px 20px;
+      border-radius: 6px;
+      width: 85%;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .white-title {
+      color: #28a745;
+      background-color: rgba(0, 51, 102, 0.08);
+      border-left: 4px solid #28a745;
+    }
+/* Apply pulse continuously, not just on hover */
+.section-title.white-title {
+  color: #28a745;
+  background-color: rgba(0, 51, 102, 0.08);
+  border-left: 4px solid #28a745;
+  animation: pulse 1.5s infinite;
+}
+
+/* Optional hover effect for transform and shadow only */
+.section-title.white-title:hover {
+  background-color: rgba(0,51,102,0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+    /* Pulse Animation */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+    }
+
+    .globe-container {
+      position: absolute;
+      right: -40px;
+      top: 30%;
+      transform: translateY(-50%);
+      width: min(520px, 90vw);
+      height: min(520px, 90vw);
+      z-index: 1;
+      border-radius: 40%;
+    }
+
+    .globe-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* PART 2 */
+    #part2-wrapper {
+      width: 100%;
+      background: #f5f5f5;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      color: #000;
+    }
+
+    /* Footer */
+    .bottom-bar {
+      position: fixed;
+      bottom: -130px;
+      left: 0;
+      width: 100%;
+      height: 130px;
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 35px;
+      box-sizing: border-box;
+      border-top: 1px solid #333;
+      transition: bottom 0.3s ease;
+      z-index: 1000;
+    }
+
+    .bottom-bar.show {
+      bottom: 0;
+    }
+
+    .bottom-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .get-in-touch {
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    .lets-talk {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 200px;
+      height: 60px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      background-color: #111;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .lets-talk:hover {
+      transform: translateY(-3px);
+      color: #28a745;
+    }
+
+    .bottom-right {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .social-icons i {
+      font-size: 30px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .social-icons i:hover {
+      transform: translateY(-3px);
+      color: #28a745;
+    }
+
+    @media (max-width: 768px) {
+      .white-box {
+        flex-direction: column;
+      }
+
+      .black-part {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .tagline {
+        font-size: 2.2rem;
+        margin-left: 0;
+        text-align: center;
+      }
+
+      .globe-container {
+        position: relative;
+        right: 0;
+        top: 0;
+        transform: none;
+        margin-top: 20px;
+      }
+    }
+
+    /* ----------------- About Me Tab ----------------- */
+    .about-tab {
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      width: 600px;
+      max-width: 90%;
+      max-height: 80%;
+      background-color: #1a1a1a;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      transform: scale(0.5);
+      opacity: 0;
+      visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 10000;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      cursor: grab;
+    }
+    .about-tab.show {
+      transform: scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .tab-header {
+      background-color: #111;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: grab;
+    }
+
+    .tab-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      flex: 1;
+      text-align: left;
+    }
+
+    .tab-buttons span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      line-height: 18px;
+      text-align: center;
+      border-radius: 50%;
+      margin-left: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #444;
+      color: #fff;
+      font-size: 14px;
+      transition: background-color 0.2s ease;
+    }
+    .tab-buttons span:hover {
+      background-color: #28a745;
+    }
+
+    .tab-content {
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .tab-content p {
+      margin-bottom: 16px;
+    }
+
+    /* Minimized bar */
+    .about-tab.minimized {
+      width: 200px !important;
+      height: 40px !important;
+      transform: scale(1) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      bottom: 20px;
+      left: 20px;
+      top: auto !important;
+      border-radius: 8px;
+    }
+
+    @media(max-width:768px){
+      .about-tab {
+        width: 95%;
+        height: 70%;
+      }
+      .about-tab.minimized {
+        width: 150px !important;
+        height: 40px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    Hii, I'm Tushar
+  </header>
+
+  <main class="page-container">
+    <section class="dark-blue-box">
+      <h1 class="dark-blue-heading">Welcome to My website</h1>
+
+      <div class="white-box">
+        <div class="white-part">
+          <img src="photo.jpg" class="profile-photo" alt="Portrait of Tushar Borse">
+          <div id="about-trigger" class="section-title white-title">About Me</div>
+          <div id="education-trigger" class="section-title white-title">Education</div>
+          <div id="experience-trigger" class="section-title white-title">Experience</div>
+
+        </div>
+
+        <div class="black-part">
+          <div class="tagline">
+            Your trusted technical<br>
+            guide for enterprise GIS solutions and<br>
+            spatial innovation
+          </div>
+
+          <div class="globe-container">
+            <iframe src="globe.html" class="globe-iframe" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section id="part2-wrapper"></section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bottom-bar">
+    <div class="bottom-left">
+      <div class="get-in-touch">Get In Touch</div>
+      <a href="contact.html" class="lets-talk">
+        <i class="fas fa-paper-plane"></i>
+        Let's Talk
+      </a>
+    </div>
+
+    <div class="bottom-right social-icons">
+      <i class="fab fa-twitter"></i>
+      <i class="fab fa-linkedin"></i>
+      <i class="fab fa-github"></i>
+      <i class="fab fa-instagram"></i>
+    </div>
+  </footer>
+ 
+  <!-- About Me Tab -->
+  <div id="about-tab" class="about-tab">
+    <div class="tab-header">
+      <h2>About Me</h2>
+      <div class="tab-buttons">
+        <span class="min-btn">&#8211;</span>
+        <span class="max-btn">&#9723;</span>
+        <span class="close-btn">&times;</span>
+      </div>
+    </div>
+    <div class="tab-content">
+      <p>I’m Tushar Borse, from Mumbai, India, with a strong interest in geospatial technology and how it’s used to understand and shape the real world. My foundation started early, growing up around maps, instruments, and field discussions my father is a surveyor, and watching him work with surveying and GIS equipment gave me my first exposure to spatial thinking long before I knew the term “GIS.”</p>
+
+      <p>Seeing how geographic data translated directly into roads, land boundaries, and planning decisions made a lasting impression on me. It showed me that GIS isn’t just software or maps on a screen it’s a decision-making tool that connects data to real outcomes. That early exposure naturally pushed me toward technology, systems, and eventually geospatial work.</p>
+
+      <p>Over time, my focus has grown beyond just tools to understanding how GIS solutions are designed, communicated, and adopted. I’m particularly interested in how complex technical ideas are presented clearly, how systems are evaluated before being implemented, and how good technical decisions can create long-term value. I’m obsessed with learning how geospatial technology can be used not just correctly, but effectively in a way that people trust and rely on.</p>
+
+      <p>My goal is to keep building depth in geospatial systems while developing the ability to explain, demonstrate, and shape solutions that make sense in real-world contexts. This site is a place where I explore ideas, document what I learn, and refine how I think about GIS, technology, and impact.</p>
+    </div>
+  </div>
+  <div id="education-container"></div>
+  <div id="experience-container"></div>
+
+
+  <script>
+    // Footer show on scroll
+    const bottomBar = document.querySelector('.bottom-bar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 120) bottomBar.classList.add('show');
+      else bottomBar.classList.remove('show');
+    });
+
+    // Load part2.html
+    fetch('part2.html')
+      .then(res => res.text())
+      .then(html => {
+        const wrapper = document.getElementById('part2-wrapper');
+        wrapper.innerHTML = html;
+        wrapper.querySelectorAll('script').forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if(oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      });
+
+    // ----------------- About Tab Logic -----------------
+    const trigger = document.getElementById('about-trigger');
+    const aboutTab = document.getElementById('about-tab');
+    const closeBtn = aboutTab.querySelector('.close-btn');
+    const minBtn = aboutTab.querySelector('.min-btn');
+    const maxBtn = aboutTab.querySelector('.max-btn');
+    const header = aboutTab.querySelector('.tab-header');
+
+    // Open tab
+    trigger.addEventListener('click', () => {
+      aboutTab.classList.remove('minimized');
+      aboutTab.classList.add('show');
+    });
+
+    // Close tab
+    closeBtn.addEventListener('click', () => {
+      aboutTab.classList.remove('show', 'minimized');
+      aboutTab.style.width = '';
+      aboutTab.style.height = '';
+      aboutTab.style.top = '';
+      aboutTab.style.left = '';
+      aboutTab.style.transform = '';
+    });
+
+    // Minimize tab (shrinks into bar)
+    minBtn.addEventListener('click', () => {
+      aboutTab.classList.add('minimized');
+    });
+
+    // Maximize tab
+    maxBtn.addEventListener('click', () => {
+      aboutTab.classList.remove('minimized');
+      aboutTab.style.top = '50%';
+      aboutTab.style.left = '50%';
+      aboutTab.style.width = '95%';
+      aboutTab.style.height = '90%';
+      aboutTab.style.transform = 'translate(-50%, -50%)';
+    });
+
+    // Drag logic
+    let isDragging = false, offsetX = 0, offsetY = 0;
+
+    header.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      const rect = aboutTab.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      aboutTab.style.transition = 'none';
+      header.style.cursor = 'grabbing';
+      document.body.style.userSelect = 'none';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if(!isDragging) return;
+      let newLeft = e.clientX - offsetX;
+      let newTop = e.clientY - offsetY;
+      const rect = aboutTab.getBoundingClientRect();
+      const winWidth = window.innerWidth;
+      const winHeight = window.innerHeight;
+      if(newLeft < 0) newLeft = 0;
+      if(newTop < 0) newTop = 0;
+      if(newLeft + rect.width > winWidth) newLeft = winWidth - rect.width;
+      if(newTop + rect.height > winHeight) newTop = winHeight - rect.height;
+      aboutTab.style.left = `${newLeft}px`;
+      aboutTab.style.top = `${newTop}px`;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if(!isDragging) return;
+      isDragging = false;
+      aboutTab.style.transition = '';
+      header.style.cursor = 'grab';
+      document.body.style.userSelect = '';
+    });
+
+    // ----------------- Load Education Tab -----------------
+fetch('education.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('education-container').innerHTML = html;
+    initEducationTab();
+  });
+  // ----------------- Load Experience Tab -----------------
+fetch('EXP.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('experience-container').innerHTML = html;
+    initExperienceTab();
+  });
+
+
+function initEducationTab() {
+  const eduTrigger = document.getElementById('education-trigger');
+  const eduTab = document.getElementById('education-tab');
+  const aboutTab = document.getElementById('about-tab');
+
+  const closeBtn = eduTab.querySelector('.close-btn');
+
+  // Open Education (CLOSE ABOUT FIRST)
+  eduTrigger.addEventListener('click', () => {
+    aboutTab.classList.remove('show', 'minimized');
+    eduTab.classList.add('show');
+  });
+
+  // Close Education
+  closeBtn.addEventListener('click', () => {
+    eduTab.classList.remove('show', 'minimized');
+  });
+}
+// ================= EDUCATION TAB ENHANCEMENT (ADD-ON) =================
+
+// Wait until education.html is loaded
+const waitForEducationTab = setInterval(() => {
+  const eduTab = document.getElementById('education-tab');
+  const eduTrigger = document.getElementById('education-trigger');
+  const aboutTab = document.getElementById('about-tab');
+
+  if (!eduTab || !eduTrigger) return;
+
+  clearInterval(waitForEducationTab);
+
+  const header = eduTab.querySelector('.tab-header');
+  const closeBtn = eduTab.querySelector('.close-btn');
+  const minBtn = eduTab.querySelector('.min-btn');
+  const maxBtn = eduTab.querySelector('.max-btn');
+
+  // ---- OPEN EDUCATION (CLOSE ABOUT) ----
+  eduTrigger.addEventListener('click', () => {
+    aboutTab.classList.remove('show', 'minimized');
+    eduTab.classList.add('show');
+  });
+
+  // ---- CLOSE ----
+  closeBtn.addEventListener('click', () => {
+    eduTab.classList.remove('show', 'minimized');
+    eduTab.style = '';
+  });
+
+  // ---- MINIMIZE ----
+  minBtn.addEventListener('click', () => {
+    eduTab.classList.add('minimized');
+  });
+
+  // ---- MAXIMIZE ----
+  maxBtn.addEventListener('click', () => {
+    eduTab.classList.remove('minimized');
+    eduTab.style.top = '50%';
+    eduTab.style.left = '50%';
+    eduTab.style.width = '95%';
+    eduTab.style.height = '90%';
+    eduTab.style.transform = 'translate(-50%, -50%)';
+  });
+
+  // ---- DRAG SUPPORT ----
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  header.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    const rect = eduTab.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    eduTab.style.transition = 'none';
+    document.body.style.userSelect = 'none';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    eduTab.style.left = `${e.clientX - offsetX}px`;
+    eduTab.style.top = `${e.clientY - offsetY}px`;
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    eduTab.style.transition = '';
+    document.body.style.userSelect = '';
+  });
+
+}, 100);
+// ================= EXPERIENCE TAB LOGIC =================
+function initExperienceTab() {
+  const expTrigger = document.getElementById('experience-trigger');
+  const expTab = document.getElementById('experience-tab');
+  const aboutTab = document.getElementById('about-tab');
+  const eduTab = document.getElementById('education-tab');
+
+  if (!expTrigger || !expTab) return;
+
+  const header = expTab.querySelector('.tab-header');
+  const closeBtn = expTab.querySelector('.close-btn');
+  const minBtn = expTab.querySelector('.min-btn');
+  const maxBtn = expTab.querySelector('.max-btn');
+
+  // ---- OPEN EXPERIENCE (CLOSE OTHERS) ----
+  expTrigger.addEventListener('click', () => {
+    aboutTab.classList.remove('show', 'minimized');
+    eduTab.classList.remove('show', 'minimized');
+    expTab.classList.add('show');
+  });
+
+  // ---- CLOSE ----
+  closeBtn.addEventListener('click', () => {
+    expTab.classList.remove('show', 'minimized');
+    expTab.style = '';
+  });
+
+  // ---- MINIMIZE ----
+  minBtn.addEventListener('click', () => {
+    expTab.classList.add('minimized');
+  });
+
+  // ---- MAXIMIZE ----
+  maxBtn.addEventListener('click', () => {
+    expTab.classList.remove('minimized');
+    expTab.style.top = '50%';
+    expTab.style.left = '50%';
+    expTab.style.width = '95%';
+    expTab.style.height = '90%';
+    expTab.style.transform = 'translate(-50%, -50%)';
+  });
+
+  // ---- DRAG SUPPORT ----
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  header.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    const rect = expTab.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    expTab.style.transition = 'none';
+    document.body.style.userSelect = 'none';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    expTab.style.left = `${e.clientX - offsetX}px`;
+    expTab.style.top = `${e.clientY - offsetY}px`;
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    expTab.style.transition = '';
+    document.body.style.userSelect = '';
+  });
+}
+
+
+  </script>
+
+</body>
+</html>

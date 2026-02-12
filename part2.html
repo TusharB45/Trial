@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <div id="part2-wrapper">
+    <style>
+      /* =====================================================
+         REFINED ACCEL-INSPIRED STYLE + IMPROVED GIS CONTENT
+         ===================================================== */
+      #part2-wrapper {
+        background: #f8f9fa;
+        padding: 100px 40px;
+        box-sizing: border-box;
+        color: #111;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      }
+
+      /* Refined color palette */
+      #part2-wrapper {
+        --green: #d4e4d3;
+        --green-dark: #a3c4a2;
+        --blue: #d5e3f5;
+        --blue-dark: #9fbad6;
+        --mint: #d9e8e5;
+        --mint-dark: #a6c4bf;
+        --gray: #e8e8e8;
+        --gray-dark: #b8b8b8;
+        --black: #0f0f0f;
+        --black-light: #2a2a2a;
+        --maroon: #6b2c2c;
+        --maroon-dark: #4a1f1f;
+        --beige: #f0e4d8;
+        --beige-dark: #d4c4b4;
+        --white: #ffffff;
+        --navy: #2c3e50;
+        --navy-dark: #1a252f;
+      }
+
+      #part2-wrapper * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Header Section */
+      .header {
+        max-width: 1440px;
+        margin: 0 auto 60px;
+      }
+
+      .header h1 {
+        font-size: clamp(38px, 5vw, 56px);
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #0f0f0f;
+        letter-spacing: -0.03em;
+      }
+
+      .header .subtitle {
+        font-size: clamp(16px, 2vw, 20px);
+        color: #5a5a5a;
+        font-weight: 400;
+        max-width: 700px;
+        line-height: 1.6;
+      }
+
+      /* Grid Container */
+      #part2-wrapper .container {
+        max-width: 1440px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+        grid-auto-rows: minmax(280px, auto);
+      }
+
+      /* Card base */
+      #part2-wrapper .card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 36px 32px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    box-shadow 0.4s ease, 
+                    background 0.35s ease, 
+                    color 0.35s ease;
+        cursor: pointer;
+      }
+
+      #part2-wrapper .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 48px rgba(0,0,0,0.12);
+      }
+
+      /* Hover effects with refined colors */
+      #part2-wrapper .card.podcast:hover  { background: var(--green-dark); color: #fff; }
+      #part2-wrapper .card.portfolio:hover { background: var(--blue-dark); color: #fff; }
+      #part2-wrapper .card.team:hover     { background: var(--mint-dark); color: #fff; }
+      #part2-wrapper .card.gray:hover     { background: var(--gray-dark); color: #fff; }
+      #part2-wrapper .card.navy:hover     { background: var(--navy-dark); color: #fff; }
+      #part2-wrapper .card.maroon:hover   { background: var(--maroon-dark); color: #fff; }
+      #part2-wrapper .card.report:hover   { background: var(--beige-dark); color: #fff; }
+
+      #part2-wrapper .card:hover .label,
+      #part2-wrapper .card:hover .btn {
+        color: inherit;
+      }
+
+      /* Label */
+      #part2-wrapper .label {
+        position: absolute;
+        top: 24px;
+        right: 28px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        opacity: 0.5;
+        color: #111;
+        transition: opacity 0.3s ease;
+      }
+
+      #part2-wrapper .card:hover .label {
+        opacity: 0.85;
+      }
+
+      /* Headings */
+      #part2-wrapper h2 {
+        font-size: clamp(22px, 2.5vw, 28px);
+        line-height: 1.25;
+        font-weight: 600;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+      }
+
+      #part2-wrapper p {
+        font-size: 15px;
+        line-height: 1.6;
+        opacity: 0.85;
+        margin-bottom: 20px;
+      }
+
+      /* Buttons */
+      #part2-wrapper .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #111;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        margin-top: auto;
+      }
+
+      #part2-wrapper .btn:hover {
+        color: #0066ff;
+        transform: translateX(4px);
+      }
+
+      #part2-wrapper .btn.light {
+        color: #fff;
+      }
+
+      #part2-wrapper .card:hover .btn.light:hover {
+        color: #e0e0e0;
+      }
+
+      #part2-wrapper .btn::after {
+        content: "→";
+        font-size: 18px;
+        font-weight: bold;
+        transition: transform 0.25s ease;
+      }
+
+      #part2-wrapper .btn:hover::after {
+        transform: translateX(3px);
+      }
+
+      /* Background colors (base) */
+      #part2-wrapper .podcast  { background: var(--green); }
+      #part2-wrapper .portfolio { background: var(--blue); }
+      #part2-wrapper .team     { background: var(--mint); }
+      #part2-wrapper .gray     { background: var(--gray); }
+      #part2-wrapper .navy     { background: var(--navy); color: #fff; }
+      #part2-wrapper .maroon   { background: var(--maroon); color: #fff; }
+      #part2-wrapper .report   { background: var(--beige); }
+
+      /* Grid positions - improved layout */
+      #part2-wrapper .card-1  { grid-column: 1 / span 4; grid-row: 1; }
+      #part2-wrapper .card-2  { grid-column: 5 / span 4; grid-row: 1; }
+      #part2-wrapper .card-3  { grid-column: 9 / span 4; grid-row: 1; }
+      #part2-wrapper .card-4  { grid-column: 1 / span 6; grid-row: 2; }
+      #part2-wrapper .card-5  { grid-column: 7 / span 6; grid-row: 2; }
+      #part2-wrapper .card-6  { grid-column: 1 / span 4; grid-row: 3; }
+      #part2-wrapper .card-7  { grid-column: 5 / span 4; grid-row: 3; }
+      #part2-wrapper .card-8  { grid-column: 9 / span 4; grid-row: 3; }
+      #part2-wrapper .card-9  { grid-column: 1 / span 12; grid-row: 4; }
+
+      /* Featured card styling */
+      #part2-wrapper .card-9 {
+        padding: 48px 40px;
+      }
+
+      #part2-wrapper .card-9 h2 {
+        font-size: clamp(26px, 3.5vw, 36px);
+        margin-bottom: 20px;
+      }
+
+      /* Report image block */
+      #part2-wrapper .report-img {
+        width: 100%;
+        height: 160px;
+        background: linear-gradient(135deg, #e6d8c8, #f5ebe0);
+        border-radius: 12px;
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 28px;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: #333;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      }
+
+      #part2-wrapper .report-img small {
+        font-size: 13px;
+        font-weight: 400;
+        opacity: 0.7;
+        margin-top: 8px;
+      }
+
+      /* Modal overlay */
+      #part2-wrapper .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.65);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(6px);
+        animation: fadeIn 0.25s ease;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Modal box */
+      #part2-wrapper .modal-box {
+        background: white;
+        width: 90%;
+        max-width: 680px;
+        padding: 52px 44px;
+        border-radius: 20px;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        animation: slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes slideUp {
+        from { 
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to { 
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #part2-wrapper .modal-box h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        color: #0f0f0f;
+      }
+
+      #part2-wrapper .modal-box p {
+        font-size: 16px;
+        line-height: 1.75;
+        color: #333;
+        margin-bottom: 24px;
+        opacity: 1;
+      }
+
+      #part2-wrapper .modal-box ul {
+        font-size: 16px;
+        line-height: 1.75;
+        margin-bottom: 28px;
+        padding-left: 0;
+        list-style: none;
+      }
+
+      #part2-wrapper .modal-box li {
+        position: relative;
+        padding-left: 32px;
+        margin-bottom: 16px;
+        color: #444;
+      }
+
+      #part2-wrapper .modal-box li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: #0066ff;
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      #part2-wrapper .modal-box strong {
+        color: #0f0f0f;
+        font-weight: 600;
+      }
+
+      #part2-wrapper .modal-box button {
+        padding: 16px 36px;
+        background: #0f0f0f;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      #part2-wrapper .modal-box button:hover {
+        background: #2a2a2a;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      }
+
+      /* Scrollbar */
+      #part2-wrapper .modal-box::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #part2-wrapper .modal-box::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 4px;
+      }
+
+      #part2-wrapper .modal-box::-webkit-scrollbar-thumb {
+        background: #c0c0c0;
+        border-radius: 4px;
+      }
+
+      #part2-wrapper .modal-box::-webkit-scrollbar-thumb:hover {
+        background: #a0a0a0;
+      }
+
+      /* Responsive */
+      @media (max-width: 1200px) {
+        #part2-wrapper .container {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        #part2-wrapper .card {
+          grid-column: 1 !important;
+          grid-row: auto !important;
+        }
+        #part2-wrapper {
+          padding: 60px 24px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        #part2-wrapper .card {
+          padding: 28px 24px;
+        }
+        #part2-wrapper .modal-box {
+          padding: 36px 28px;
+        }
+      }
+    </style>
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Bridging technical expertise with business development to drive geospatial transformation</h1>
+      <p class="subtitle"></p>
+    </div>
+
+    <!-- Cards Container -->
+    <div class="container">
+      
+      <!-- Card 1: Technical Foundation -->
+      <div class="card portfolio card-1" onclick="openModal('modal1')">
+        <span class="label">TECHNICAL EXPERTISE</span>
+        <h2>Enterprise GIS & Platform Mastery</h2>
+        <p>Deep knowledge across ArcGIS Enterprise, cloud architectures, and development stacks</p>
+        <a href="javascript:void(0)" class="btn">EXPLORE CREDENTIALS</a>
+      </div>
+
+      <!-- Card 2: Sales & Business Development -->
+      <div class="card navy card-2" onclick="openModal('modal2')">
+        <span class="label">BUSINESS DEVELOPMENT</span>
+        <h2>Revenue Sales Approach</h2>
+        <p>Consultative selling, pipeline management, executive engagement</p>
+        <a href="javascript:void(0)" class="btn light">VIEW METHODOLOGY</a>
+      </div>
+
+      <!-- Card 3: Solution Architecture -->
+      <div class="card gray card-3" onclick="openModal('modal3')">
+        <span class="label">SOLUTION DESIGN</span>
+        <h2>Strategic Consulting</h2>
+        <p>Translating challenges into compelling geospatial solutions</p>
+        <a href="javascript:void(0)" class="btn">SEE APPROACH</a>
+      </div>
+
+      <!-- Card 4: Demonstration Excellence -->
+      <div class="card podcast card-4" onclick="openModal('modal4')">
+        <span class="label">PRESENTATION MASTERY</span>
+        <h2>Compelling Demonstrations & Executive Storytelling</h2>
+        <p>Technical workshops and C suite presentations that drive engagement and value realization</p>
+        <a href="javascript:void(0)" class="btn">WATCH IN ACTION</a>
+      </div>
+
+      <!-- Card 5: Relationship Building -->
+      <div class="card team card-5" onclick="openModal('modal5')">
+        <span class="label">CUSTOMER SUCCESS</span>
+        <h2>Strategic Relationship Development</h2>
+        <p>Building partnerships with customers, sales teams, and technical leaders for mutual success</p>
+        <a href="javascript:void(0)" class="btn">LEARN MORE</a>
+      </div>
+
+      <!-- Card 6: Market Intelligence -->
+      <div class="card report card-6" onclick="openModal('modal6')">
+        <span class="label">MARKET AWARENESS</span>
+        <div class="report-img">
+          GIS Trends & Innovation<br />
+          <small>Cloud, AI, ArcGIS Enterprise, emerging tech</small>
+        </div>
+        <h2>Tracking technology evolution</h2>
+        <a href="javascript:void(0)" class="btn">EXPLORE INSIGHTS</a>
+      </div>
+
+      <!-- Card 7: Problem Solving -->
+      <div class="card portfolio card-7" onclick="openModal('modal7')">
+        <span class="label">SPATIAL THINKING</span>
+        <h2>Geospatial Problem Solver</h2>
+        <p>Breaking complex challenges into actionable solutions</p>
+        <a href="javascript:void(0)" class="btn">SEE EXAMPLES</a>
+      </div>
+
+      <!-- Card 8: Team Collaboration -->
+      <div class="card maroon card-8" onclick="openModal('modal8')">
+        <span class="label">COLLABORATION</span>
+        <h2>Cross Functional Excellence</h2>
+        <p>Thriving in high-pressure, team-oriented environments</p>
+        <a href="javascript:void(0)" class="btn light">DISCOVER MORE</a>
+      </div>
+
+      <!-- Card 9: Foundation (Featured) -->
+      <div class="card podcast card-9" onclick="openModal('modal9')">
+        <span class="label">FOUNDATION & FIT</span>
+        <h2>Bachelor's in IT • Self-Taught GIS Specialist • Ready for Global Impact</h2>
+        <p>Combining formal technical education with intensive self directed learning in geospatial technologies. Prepared for domestic/international travel (25-50%), comfortable in fast paced environments, and driven to become an integral part of GIS sales teams.</p>
+        <a href="javascript:void(0)" class="btn">FULL BACKGROUND</a>
+      </div>
+
+    </div>
+
+    <!-- Modals -->
+    
+    <!-- Modal 1: Technical Foundation -->
+    <div class="modal-overlay" id="modal1" onclick="closeModal('modal1')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Enterprise GIS Mastery</h2>
+        <p><strong>I bring comprehensive technical expertise that bridges development and enterprise deployment:</strong></p>
+        <ul>
+          <li><strong>Programming Excellence:</strong> Strong proficiency in Python with working knowledge of .NET, Java, C++, and JavaScript applied across ArcGIS scripting, automation, and custom solutions</li>
+          <li><strong>Enterprise Architecture:</strong> Understanding ArcGIS from an IT perspective including hardware sizing, storage strategies, security protocols, networking, web services, and cloud deployment patterns</li>
+          <li><strong>Cloud Platforms:</strong> Knowledge of Azure and AWS environments, cloud computing concepts, and how they integrate with enterprise GIS infrastructure</li>
+          <li><strong>Database Technologies:</strong> Familiarity with geodatabases and underlying DBMS technologies that power spatial data management</li>
+          <li><strong>Emerging Tech:</strong> Basic understanding of AI/ML concepts in geospatial contexts and 3D visualization capabilities</li>
+        </ul>
+        <p>This technical foundation allows me to speak credibly with IT decision-makers, understand customer infrastructure constraints, and design solutions that are both powerful and implementable.</p>
+        <button onclick="closeModal('modal1')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 2: Sales Mindset -->
+    <div class="modal-overlay" id="modal2" onclick="closeModal('modal2')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Revenue-Driven Business Development</h2>
+        <p><strong>My goal is to become a revenue generating asset who drives GIS adoption through consultative selling:</strong></p>
+        <ul>
+          <li><strong>Pipeline Development:</strong> Eager to proactively hunt new business, build and manage sales pipelines, and convert opportunities into closed deals</li>
+          <li><strong>Consultative Approach:</strong> Understanding customer challenges first, then positioning GIS solutions as strategic assets that drive measurable business value</li>
+          <li><strong>Executive Engagement:</strong> Conducting C level demos, presentations, and solution workshops that speak the language of business outcomes</li>
+          <li><strong>Deal Management:</strong> Learning the full sales cycle from qualification through closure and handover to delivery teams</li>
+          <li><strong>Sales Enablement:</strong> Supporting Account Executives with technical expertise, proof of concepts, and solution validation</li>
+          <li><strong>Forecasting & Reporting:</strong> Committed to maintaining accurate CRM data, pipeline reporting, and sales forecasts</li>
+        </ul>
+        <p>I understand that successful pre sales requires both technical credibility and business acumen    building both.</p>
+        <button onclick="closeModal('modal2')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 3: Solution Architecture -->
+    <div class="modal-overlay" id="modal3" onclick="closeModal('modal3')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Strategic Solution Design</h2>
+        <p><strong>I approach every customer engagement as a consulting opportunity to create transformative solutions:</strong></p>
+        <ul>
+          <li><strong>Business First Thinking:</strong> Starting with customer challenges and working backward to craft GIS solutions that deliver clear ROI</li>
+          <li><strong>Platform Expertise:</strong> Becoming a subject matter expert across Esri's complete platform from ArcGIS Enterprise to cloud services and strategic products</li>
+          <li><strong>Adoption Strategies:</strong> Developing frameworks for successful technology adoption that account for technical, organizational, and change management factors</li>
+          <li><strong>Visionary Guidance:</strong> Anticipating customer needs and positioning emerging capabilities (AI, cloud, real time analytics) before they ask</li>
+          <li><strong>Best Practices:</strong> Sharing proven implementation patterns and customization strategies that accelerate time to value</li>
+        </ul>
+        <p>My goal is to be the trusted advisor who helps customers see not just what GIS can do today, but what it will enable tomorrow.</p>
+        <button onclick="closeModal('modal3')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 4: Demonstration Excellence -->
+    <div class="modal-overlay" id="modal4" onclick="closeModal('modal4')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Compelling Demonstrations & Storytelling</h2>
+        <p><strong>I excel at transforming complex technical capabilities into clear, engaging narratives:</strong></p>
+        <ul>
+          <li><strong>Executive Presentations:</strong> Crafting and delivering high impact presentations for C suite audiences that focus on business value, not features</li>
+          <li><strong>Technical Demonstrations:</strong> Building live demos that showcase real world use cases and make geospatial technology tangible</li>
+          <li><strong>Solution Workshops:</strong> Facilitating collaborative sessions where customers discover GIS value through hands-on exploration</li>
+          <li><strong>Adaptive Communication:</strong> Seamlessly adjusting technical depth based on audience — from developers to executives</li>
+          <li><strong>Thoughtful Questioning:</strong> Using strategic questions during demos to uncover pain points and guide customers toward aha moments</li>
+          <li><strong>Value Driven Messaging:</strong> Always connecting technical capabilities back to customer opportunities for improvement</li>
+        </ul>
+        <p>I believe the best demos don't just show what's possible they inspire customers to imagine their own transformation.</p>
+        <button onclick="closeModal('modal4')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 5: Relationship Building -->
+    <div class="modal-overlay" id="modal5" onclick="closeModal('modal5')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Strategic Relationship Development</h2>
+        <p><strong>Success in GIS sales requires building trust and partnerships at every level:</strong></p>
+        <ul>
+          <li><strong>Customer Relationships:</strong> Developing long term partnerships built on technical credibility, responsiveness, and genuine interest in customer success</li>
+          <li><strong>Sales Team Collaboration:</strong> Working as a trusted partner to Account Executives supporting sales strategies, providing technical air cover, and helping close deals</li>
+          <li><strong>Cross Functional Alignment:</strong> Maintaining close connections with product teams, development groups, and senior leadership to bring the best of Esri to customers</li>
+          <li><strong>Executive Access:</strong> Comfortable engaging with C level stakeholders and strategic decision makers</li>
+          <li><strong>Listening & Empathy:</strong> Developing exceptional interpersonal skills to truly understand customer challenges and motivations</li>
+        </ul>
+        <p>I view every interaction as an opportunity to build trust, demonstrate value, and create advocates for geospatial technology.</p>
+        <button onclick="closeModal('modal5')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 6: Market Intelligence -->
+    <div class="modal-overlay" id="modal6" onclick="closeModal('modal6')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Technology Trends & Market Awareness</h2>
+        <p><strong>Staying ahead of the GIS landscape to anticipate customer needs and competitive positioning:</strong></p>
+        <ul>
+          <li><strong>Cloud Transformation:</strong> Deep understanding of how cloud platforms (Azure, AWS) are reshaping GIS deployment models</li>
+          <li><strong>AI & Machine Learning:</strong> Tracking how AI is being integrated into spatial analysis, image classification, and predictive modeling</li>
+          <li><strong>Real Time Analytics:</strong> Following developments in streaming data, IoT integration, and operational intelligence</li>
+          <li><strong>Competitive Landscape:</strong> Monitoring competitors, understanding their positioning, and articulating Esri's differentiated value</li>
+          <li><strong>Industry Trends:</strong> Tracking how different verticals (utilities, government, natural resources) are evolving their GIS strategies</li>
+          <li><strong>Emerging Technologies:</strong> Exploring AR/VR, digital twins, and other innovations that will shape the future of geospatial</li>
+        </ul>
+        <p>This market awareness allows me to have forward looking conversations with customers and position solutions for long term success.</p>
+        <button onclick="closeModal('modal6')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 7: Problem Solving -->
+    <div class="modal-overlay" id="modal7" onclick="closeModal('modal7')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Geospatial Problem Solving</h2>
+        <p><strong>I approach challenges with a spatial mindset that breaks down complexity and identifies opportunities:</strong></p>
+        <ul>
+          <li><strong>Spatial Theory to Practice:</strong> Applying geographic concepts and spatial analysis principles to real business problems</li>
+          <li><strong>Decomposition:</strong> Breaking complex challenges into manageable components and identifying critical paths to solutions</li>
+          <li><strong>Multiple Solutions:</strong> Exploring diverse approaches rather than converging on a single answer — then recommending the best fit</li>
+          <li><strong>Continuous Improvement:</strong> Always looking for optimization opportunities in workflows, performance, and user experience</li>
+          <li><strong>Integration Thinking:</strong> Understanding how to weave emerging trends (cloud, AI, IoT) into practical geospatial solutions</li>
+          <li><strong>Business Impact Focus:</strong> Ensuring every technical solution connects to measurable business value</li>
+        </ul>
+        <p>My problem solving approach ensures customers get solutions that are not just technically sound, but strategically valuable.</p>
+        <button onclick="closeModal('modal7')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 8: Team Collaboration -->
+    <div class="modal-overlay" id="modal8" onclick="closeModal('modal8')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Cross-Functional Team Excellence</h2>
+        <p><strong>I thrive in collaborative, high energy environments where diverse expertise comes together:</strong></p>
+        <ul>
+          <li><strong>High Stress Performance:</strong> Comfortable working in fast paced, action packed environments like the Geo Experience Center</li>
+          <li><strong>Team First Mindset:</strong> Bringing passion, problem solving skills, and a collaborative attitude to every engagement</li>
+          <li><strong>Senior Leadership Engagement:</strong> Prepared to work alongside executives and strategic decision makers</li>
+          <li><strong>Developer Connections:</strong> Maintaining close relationships with product and engineering teams to stay current on capabilities</li>
+          <li><strong>Knowledge Sharing:</strong> Committed to learning from colleagues and contributing to collective team success</li>
+          <li><strong>Adaptability:</strong> Quick to adjust to changing priorities, customer needs, and team dynamics</li>
+        </ul>
+        <p>I believe the best outcomes come from great teams, and I'm committed to being a valuable contributor.</p>
+        <button onclick="closeModal('modal8')">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal 9: Foundation -->
+    <div class="modal-overlay" id="modal9" onclick="closeModal('modal9')">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <h2>Education, Background & Readiness</h2>
+        <p><strong>My foundation combines formal education with intensive self directed learning in geospatial technologies:</strong></p>
+        <ul>
+          <li><strong>Bachelor's Degree in IT:</strong> Provides core technical competencies in systems, programming, and infrastructure</li>
+          <li><strong>Self Taught GIS Specialist:</strong> Committed to mastering ArcGIS through courses, projects, documentation, and hands-on exploration</li>
+          <li><strong>Rapid Learning Ability:</strong> Track record of quickly acquiring new technical skills and domain knowledge</li>
+          <li><strong>Geographic Flexibility:</strong> Prepared for domestic or international travel (25-50%) to support customers and opportunities</li>
+          <li><strong>High Energy Environments:</strong> Thrive in intense, teamwork driven settings where pressure brings out peak performance</li>
+          <li><strong>Relentless Curiosity:</strong> Naturally driven to explore new technologies, strategies, and ways to create value</li>
+          <li><strong>Growth Orientation:</strong> Eager to develop from technical contributor into a revenue driving pre sales professional</li>
+        </ul>
+        <p>I'm bringing a blend of technical foundation, learning agility, and genuine passion for geospatial technology. My goal is to become an indispensable member of teams where I can grow my skills while driving customer success and business results.</p>
+        <button onclick="closeModal('modal9')">Close</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+<script>
+  window.openModal = function(id) {
+    document.getElementById(id).style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  window.closeModal = function(id) {
+    document.getElementById(id).style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('#part2-wrapper .modal-overlay').forEach(el => {
+        el.style.display = 'none';
+      });
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
+
+
+</body>
+</html>

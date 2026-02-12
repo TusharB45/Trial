@@ -1,0 +1,65 @@
+<div id="experience-tab" class="about-tab">
+  <div class="tab-header">
+    <h2>Experience</h2>
+    <div class="tab-buttons">
+      <span class="min-btn">&#8211;</span>
+      <span class="max-btn">&#9723;</span>
+      <span class="close-btn">&times;</span>
+    </div>
+  </div>
+
+  <div class="tab-content" style="display:flex; flex-direction:column; gap:20px;">
+    
+    <!-- Company Card -->
+    <div style="
+      display:flex; 
+      align-items:flex-start; 
+      gap:20px; 
+      padding:20px; 
+      background:#111; 
+      border-radius:12px; 
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      border-left: 4px solid #28a745;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.6)';" 
+       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(0,0,0,0.5)';">
+      <img 
+        src="here.png" 
+        alt="HERE Technologies Logo" 
+        style="height:60px; border-radius:8px; object-fit:contain; background:#fff; padding:6px;"
+      />
+      <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+        <p style="margin:0; font-weight:700; font-size:1.1rem; color:#28a745;">
+          Trainee — Geospatial Operations
+        </p>
+        <p style="margin:0; opacity:0.75; font-size:0.95rem;">
+          HERE Technologies · Airoli, Navi Mumbai
+        </p>
+        <p style="margin:0; opacity:0.65; font-size:0.85rem;">
+          February 2025 – February 2026 (Present)
+        </p>
+      </div>
+    </div>
+
+    <!-- Work Details Box -->
+    <div style="
+      background:#1a1a1a; 
+      padding:20px; 
+      border-radius:12px; 
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      border-left: 4px solid #28a745;
+      transition: transform 0.2s ease;
+    " onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';">
+      <p style="margin:0 0 12px 0; font-weight:700; color:#28a745; font-size:1rem;">
+        Key Responsibilities & Achievements
+      </p>
+      <ul style="margin:0; padding-left:20px; list-style:disc; color:#fff; gap:8px;">
+        <li>Processed and analyzed geospatial datasets using <strong>QGIS</strong> for feature validation and quality assurance.</li>
+        <li>Loaded and visualized <strong>GeoJSON, raster, and vector layers</strong> for map accuracy verification.</li>
+        <li>Developed <strong>Python scripts</strong> to convert PNG images into GeoTIFF and automate data preparation.</li>
+        <li>Supported production mapping systems with high data reliability and adherence to standards.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>

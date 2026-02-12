@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Amrit Palace</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #FAFAFA;
+      color: #111111;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .page-container {
+      width: 1200px;
+      max-width: 1200px;
+      min-width: 300px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    .contact-header {
+      font-size: 56px;
+      font-weight: 300;
+      letter-spacing: 2.1px;
+      line-height: 1.2;
+      color: #111111;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .contact-main {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 100px;
+      flex-wrap: nowrap;
+    }
+
+    .contact-left {
+      flex: 0 0 45%;
+      min-width: 450px;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      margin-bottom: 60px;
+      gap: 20px;
+    }
+
+    .icon-circle {
+      width: 70px;
+      height: 70px;
+      background-color: #F5F5F5;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .icon-circle i {
+      font-size: 28px;
+      color: #666666;
+      line-height: 1;
+      vertical-align: middle;
+    }
+
+    .contact-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .contact-label {
+      font-size: 20px;
+      font-weight: 600;
+      color: #222222;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .contact-detail {
+      font-size: 18px;
+      font-weight: 400;
+      color: #444444;
+      line-height: 1.5;
+      text-decoration: none;
+      transition: color 0.25s ease-in-out;
+    }
+
+    .contact-detail:hover {
+      color: #B8860B;
+    }
+
+    .contact-detail span {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contact-intro {
+      font-size: 19px;
+      font-weight: 400;
+      color: #555555;
+      line-height: 1.7;
+      margin-top: 80px;
+      max-width: 420px;
+      letter-spacing: 0.2px;
+      text-align: left;
+      opacity: 0.95;
+    }
+
+    .contact-right {
+      flex: 0 0 55%;
+      min-width: 550px;
+      max-width: 660px;
+    }
+
+    .contact-form {
+      background-color: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+      padding: 60px 50px;
+      border: 1px solid #F0F0F0;
+      box-sizing: border-box;
+    }
+
+    .form-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #222222;
+      margin-bottom: 30px;
+      line-height: 1.3;
+      letter-spacing: 0.5px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .form-row.two-column {
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      letter-spacing: 0.2px;
+    }
+
+    .required label {
+      font-weight: 500;
+      color: #222222;
+    }
+
+    .optional label {
+      font-weight: 400;
+      color: #888888;
+    }
+
+    .asterisk {
+      color: #D32F2F;
+      font-size: 16px;
+      margin-left: 2px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #E0E0E0;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #333333;
+      background-color: #FFFFFF;
+      padding: 0 15px;
+      outline: none;
+      transition: border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+      font-family: inherit;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #B8860B;
+      box-shadow: 0 0 0 2px rgba(184,134,11,0.1);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #AAAAAA;
+      font-weight: 300;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    textarea {
+      height: 180px;
+      padding: 15px;
+      resize: vertical;
+      line-height: 1.5;
+      min-height: 180px;
+      max-height: 300px;
+    }
+
+    .privacy-box {
+      background-color: #F9F9F9;
+      border: 1px solid #EEEEEE;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 25px;
+      margin-bottom: 30px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #666666;
+      line-height: 1.6;
+    }
+
+    .privacy-box a {
+      color: #B8860B;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.25s ease-in-out;
+    }
+
+    .privacy-box a:hover {
+      color: #9C6E09;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 180px;
+      height: 56px;
+      font-size: 17px;
+      font-weight: 500;
+      color: #FFFFFF;
+      background-color: #111111;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn i {
+      font-size: 18px;
+      color: #FFFFFF;
+    }
+
+    .submit-btn:hover {
+      background-color: #B8860B;
+      transform: scale(1.02);
+      box-shadow: 0 5px 15px rgba(184,134,11,0.3);
+    }
+
+    .submit-btn:active {
+      background-color: #9C6E09;
+      transform: scale(0.98);
+      box-shadow: 0 2px 5px rgba(184,134,11,0.4);
+    }
+
+    .submit-btn:focus {
+      outline: 2px solid #B8860B;
+      outline-offset: 2px;
+    }
+
+    .contact-footer {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 300;
+      color: #999999;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid #EEEEEE;
+    }
+
+    @media (max-width: 1199px) {
+      .contact-header { font-size: 48px; }
+      .contact-main { gap: 60px; }
+    }
+
+    @media (max-width: 991px) {
+      .contact-main { flex-direction: column; gap: 80px; }
+      .contact-left, .contact-right { flex: 1 1 100%; min-width: 100%; max-width: 100%; }
+      .contact-header { font-size: 42px; }
+      .icon-circle { width: 60px; height: 60px; }
+      .icon-circle i { font-size: 24px; }
+      .contact-form { padding: 40px 30px; }
+      .form-row.two-column { flex-direction: column; gap: 15px; }
+    }
+
+    @media (max-width: 767px) {
+      .page-container { padding: 30px 20px; }
+      .contact-header { font-size: 36px; }
+      .contact-item { flex-direction: column; align-items: center; text-align: center; }
+      .icon-circle { width: 50px; height: 50px; }
+      .icon-circle i { font-size: 24px; }
+      .contact-form { padding: 30px 20px; }
+      .submit-btn { width: 100%; }
+    }
+
+    @media (max-width: 479px) {
+      .page-container { padding: 25px 15px; }
+      .contact-header { font-size: 28px; letter-spacing: 1.5px; }
+      .icon-circle { width: 45px; height: 45px; }
+      .icon-circle i { font-size: 22px; }
+      input { height: 48px; }
+      .submit-btn { height: 52px; width: 100%; }
+    }
+
+    /* Map Box for Contact Section */
+    .map-box {
+      width: 100%;
+      height: 320px; /* Bigger map */
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      margin-top: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .map-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .map-box:hover {
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <header class="contact-header">
+      I'D LOVE TO HEAR FROM YOU
+    </header>
+
+    <main class="contact-main">
+      <div class="contact-left">
+
+        <div class="contact-item">
+          <div class="icon-circle"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+          <div class="contact-text">
+            <div class="contact-label">Write me</div>
+            <a href="mailto:tusharborse45@gmail.com" class="contact-detail">tusharborse45@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon-circle"><i class="fas fa-phone-alt" aria-hidden="true"></i></div>
+          <div class="contact-text">
+            <div class="contact-label">Call me</div>
+            <a href="tel:+919284779097" class="contact-detail">+91 9284779097</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon-circle"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></div>
+          <div class="contact-text">
+            <div class="contact-label">Where I am located</div>
+            <div class="map-box">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24177.189000000002!2d72.7750!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b7c5a3c2b7e7%3A0x3c3c3c3c3c3c3c3c!2sMumbai%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
+        </div>
+
+        <p class="contact-intro">
+          I am here to help.
+        </p>
+      </div>
+
+      <div class="contact-right">
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="form-title">Send me a message</div>
+
+          <div class="form-row two-column">
+            <div class="form-group optional">
+              <label for="firstName">Name</label>
+              <input type="text" id="firstName" placeholder="First name">
+            </div>
+            <div class="form-group required">
+              <label for="lastName">Last Name<span class="asterisk">*</span></label>
+              <input type="text" id="lastName" placeholder="Last name" required>
+            </div>
+          </div>
+
+          <div class="form-row two-column">
+            <div class="form-group required">
+              <label for="email">Email address<span class="asterisk">*</span></label>
+              <input type="email" id="email" placeholder="your.email@example.com" required>
+            </div>
+            <div class="form-group optional">
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" placeholder="(123) 456-7890">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group required">
+              <label for="subject">Subject<span class="asterisk">*</span></label>
+              <input type="text" id="subject" placeholder="Subject" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group required">
+              <label for="message">Message<span class="asterisk">*</span></label>
+              <textarea id="message" placeholder="Your message..." required></textarea>
+            </div>
+          </div>
+
+          <div class="privacy-box">
+            By submitting this form, you agree to our <a href="#">Privacy Policy</a> and allow us to use your information solely to respond to your request. We respect your privacy — your details are safe with us.
+          </div>
+
+          <button type="submit" class="submit-btn" aria-label="Send message">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="contact-footer">
+      © 2026 Tushar Borse. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+
+      ['lastName','email','subject','message'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el.value.trim()){
+          el.style.borderColor = '#FF6B6B';
+          valid = false;
+        } else {
+          el.style.borderColor = '#B8860B';
+        }
+      });
+
+      const email = document.getElementById('email');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(email.value && !emailRegex.test(email.value)){
+        email.style.borderColor = '#FF6B6B';
+        valid = false;
+      }
+
+      if(valid){
+        alert('Thank you! Your message has been sent.');
+        form.reset();
+      } else {
+        alert('Please fill in all required fields correctly.');
+      }
+    });
+  </script>
+</body>
+</html>
