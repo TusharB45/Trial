@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Areas of Interest — Tushar Borse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: #f8f9fa;
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    header.navbar {
+      position: sticky;
+      top: 0;
+      font-size: 2rem;
+      padding: 32px 50px;
+      font-weight: 700;
+      background: #f8f9fa;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8e8e8;
+      letter-spacing: -0.03em;
+    }
+    .nav-back {
+      font-size: 0.9rem;
+      color: #111;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+      font-weight: 600;
+    }
+    .nav-back:hover { opacity: 0.5; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 70px 50px 50px;
+      border-bottom: 1px solid #e8e8e8;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .hero-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #0f0f0f;
+      max-width: 700px;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: #5a5a5a;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    /* ── COMPANY SELECTOR ── */
+    .company-selector {
+      padding: 40px 50px 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .ctab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #fff;
+      font-family: inherit;
+      letter-spacing: 0.01em;
+    }
+    .ctab:hover { color: #111; border-color: #999; background: #f0f0f0; }
+    .ctab.active {
+      color: #111;
+      border-color: #111;
+      background: #fff;
+    }
+    .ctab .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #111;
+    }
+    .ctab:not(.active) .dot { background: currentColor; }
+
+    /* ── PANELS ── */
+    .company-panel { display: none; }
+    .company-panel.active { display: block; }
+
+    /* ── BENTO WRAPPER ── */
+    .bento-section {
+      padding: 50px 50px 100px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .bento-header {
+      margin-bottom: 48px;
+    }
+    .bento-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: #0f0f0f;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+    .bento-header p {
+      font-size: 0.95rem;
+      color: #5a5a5a;
+      max-width: 580px;
+      line-height: 1.65;
+    }
+    .bento-header .company-badge {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 3px 12px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid #bbb;
+      color: #555;
+    }
+
+    /* ── CSS VARIABLES ── */
+    :root {
+      --green: #d4e4d3;
+      --green-dark: #a3c4a2;
+      --blue: #d5e3f5;
+      --blue-dark: #9fbad6;
+      --mint: #d9e8e5;
+      --mint-dark: #a6c4bf;
+      --gray: #e8e8e8;
+      --gray-dark: #b8b8b8;
+      --navy: #2c3e50;
+      --navy-dark: #1a252f;
+      --maroon: #6b2c2c;
+      --maroon-dark: #4a1f1f;
+      --beige: #f0e4d8;
+      --beige-dark: #d4c4b4;
+      --white: #ffffff;
+    }
+
+    /* ── BENTO GRID ── */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      grid-auto-rows: minmax(260px, auto);
+    }
+
+    /* ── CARD BASE ── */
+    .bcard {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1),
+                  box-shadow 0.4s ease,
+                  background 0.35s ease,
+                  color 0.35s ease;
+      cursor: pointer;
+    }
+    .bcard:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.12);
+    }
+
+    /* Color variants */
+    .bcard.green  { background: var(--green); color: #111; }
+    .bcard.blue   { background: var(--blue); color: #111; }
+    .bcard.mint   { background: var(--mint); color: #111; }
+    .bcard.gray   { background: var(--gray); color: #111; }
+    .bcard.navy   { background: var(--navy); color: #fff; }
+    .bcard.maroon { background: var(--maroon); color: #fff; }
+    .bcard.beige  { background: var(--beige); color: #111; }
+
+    /* Hover darkening */
+    .bcard.green:hover  { background: var(--green-dark); color: #fff; }
+    .bcard.blue:hover   { background: var(--blue-dark); color: #fff; }
+    .bcard.mint:hover   { background: var(--mint-dark); color: #fff; }
+    .bcard.gray:hover   { background: var(--gray-dark); color: #fff; }
+    .bcard.navy:hover   { background: var(--navy-dark); color: #fff; }
+    .bcard.maroon:hover { background: var(--maroon-dark); color: #fff; }
+    .bcard.beige:hover  { background: var(--beige-dark); color: #fff; }
+
+    /* Card label */
+    .bcard .blabel {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      color: inherit;
+      transition: opacity 0.3s;
+    }
+    .bcard:hover .blabel { opacity: 0.85; }
+
+    .bcard h3 {
+      font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .bcard p {
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0.85;
+      margin-bottom: 16px;
+    }
+    .bcard .bbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: inherit;
+      text-decoration: none;
+      margin-top: auto;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+    }
+    .bcard .bbtn::after { content: "→"; font-size: 18px; font-weight: bold; transition: transform 0.25s ease; }
+    .bcard .bbtn:hover::after { transform: translateX(3px); }
+    .bcard .bbtn:hover { opacity: 0.7; }
+
+    /* Grid column spans */
+    .col-4  { grid-column: span 4; }
+    .col-6  { grid-column: span 6; }
+    .col-12 { grid-column: span 12; }
+
+    /* Icon / image block */
+    .bcard .card-img-block {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.03));
+      border-radius: 10px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 20px;
+      gap: 10px;
+      font-size: 1.5rem;
+    }
+    .bcard .card-img-block span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      opacity: 0.55;
+      letter-spacing: 0.1em;
+      font-family: inherit;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 0.25s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .modal-box {
+      background: white;
+      width: 90%;
+      max-width: 680px;
+      padding: 52px 44px;
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-box h2 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #0f0f0f;
+      letter-spacing: -0.03em;
+    }
+    .modal-box p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #333;
+      margin-bottom: 24px;
+    }
+    .modal-box ul {
+      list-style: none;
+      margin-bottom: 28px;
+      padding: 0;
+    }
+    .modal-box li {
+      position: relative;
+      padding-left: 32px;
+      margin-bottom: 16px;
+      font-size: 15px;
+      color: #444;
+      line-height: 1.7;
+    }
+    .modal-box li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #0066ff;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .modal-box strong { color: #0f0f0f; font-weight: 600; }
+    .modal-box .modal-close {
+      padding: 16px 36px;
+      background: #0f0f0f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s ease;
+    }
+    .modal-box .modal-close:hover { background: #2a2a2a; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .modal-box::-webkit-scrollbar { width: 8px; }
+    .modal-box::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 4px; }
+    .modal-box::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 4px; }
+    .modal-box::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
+
+    /* ── FOOTER ── */
+    .bottom-bar {
+      position: fixed;
+      bottom: -130px;
+      left: 0;
+      width: 100%;
+      height: 130px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-top: 1px solid #e8e8e8;
+      transition: bottom 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.06);
+    }
+    .bottom-bar.show { bottom: 0; }
+    .get-in-touch { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: #111; }
+    .lets-talk {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 28px; font-size: 15px; font-weight: 600;
+      color: #111; background: #f0f0f0; border-radius: 10px; text-decoration: none;
+      font-family: inherit; border: 1px solid #ddd; transition: all 0.2s;
+    }
+    .lets-talk:hover { background: #111; color: #fff; transform: translateY(-2px); }
+    .bottom-left { display: flex; align-items: center; gap: 20px; }
+    .bottom-right { display: flex; align-items: center; gap: 32px; }
+    .social-icons i { font-size: 22px; color: #555; cursor: pointer; transition: all 0.2s; }
+    .social-icons i:hover { transform: translateY(-3px); color: #111; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1200px) {
+      .bento-grid { grid-template-columns: 1fr 1fr; }
+      .bcard { grid-column: span 1 !important; }
+      header.navbar { padding: 24px 30px; }
+      .hero, .company-selector { padding-left: 30px; padding-right: 30px; }
+      .bento-section { padding: 40px 30px 100px; }
+    }
+    @media (max-width: 640px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      header.navbar { padding: 18px 20px; font-size: 1.4rem; }
+      .hero, .company-selector, .bento-section { padding-left: 20px; padding-right: 20px; }
+      .modal-box { padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    Areas of Interest
+    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back</a>
+  </header>
+
+  <div class="hero">
+    <p class="hero-label">Industry Focus & Platform Familiarity</p>
+    <h1>Markets, platforms, and solutions I work with</h1>
+    <p>
+      A curated view of the geospatial platforms, data types, and solution categories I understand —
+      from enterprise GIS and location intelligence to imagery, mobility, and Earth observation —
+      shaped by hands-on learning, demos, and pre-sales exposure.
+    </p>
+  </div>
+
+  <!-- COMPANY TABS -->
+  <div class="company-selector">
+    <button class="ctab active" onclick="switchCompany('esri', this)">
+      <span class="dot"></span>Enterprise GIS & Spatial Analytics
+    </button>
+    <button class="ctab" onclick="switchCompany('here', this)">
+      <span class="dot"></span>Location Intelligence & Mobility Data
+    </button>
+    <button class="ctab" onclick="switchCompany('mapbox', this)">
+      <span class="dot"></span>Modern Web Mapping & Developer Platforms
+    </button>
+    <button class="ctab" onclick="switchCompany('hexagon', this)">
+      <span class="dot"></span>Reality Capture, Surveying & Industrial GIS
+    </button>
+    <button class="ctab" onclick="switchCompany('vexcel', this)">
+      <span class="dot"></span>Aerial Imagery & Property Intelligence
+    </button>
+    <button class="ctab" onclick="switchCompany('maxar', this)">
+      <span class="dot"></span>Satellite Imagery & Earth Observation
+    </button>
+  </div>
+
+  <!-- ═══════════ ESRI ═══════════ -->
+  <div id="panel-esri" class="company-panel active">
+    <div class="bento-section">
+      <div class="bento-header">
+        <span class="company-badge">Primary Focus</span>
+        <h2>Enterprise GIS Platform</h2>
+        <p>Enterprise GIS from desktop software to cloud-native SaaS, covering spatial analytics, data management, and developer tools across every industry.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bcard blue col-4" onclick="openModal('esri1')">
+          <span class="blabel">CORE</span>
+          <h3>Next-Generation GIS Platform</h3>
+          <p>Foundational on-premises or cloud systems for GIS with full control over deployment, security, and infrastructure.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard navy col-4" onclick="openModal('esri2')">
+          <span class="blabel">SAAS</span>
+          <h3>Cloud GIS</h3>
+          <p>Cloud mapping platforms to share maps, host data, and build apps without managing infrastructure.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard gray col-4" onclick="openModal('esri3')">
+          <span class="blabel">DESKTOP</span>
+          <h3>Professional Desktop GIS</h3>
+          <p>Advanced analysis, 3D visualization, and professional cartography in a powerful desktop environment.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard green col-6" onclick="openModal('esri4')">
+          <span class="blabel">CAPABILITIES</span>
+          <h3>Mapping, Analytics & Data Management</h3>
+          <p>See and understand data spatially. Spatial statistics, ML integration, geodatabases, versioning, and enterprise data sharing — all in one platform.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard maroon col-6" onclick="openModal('esri5')">
+          <span class="blabel">DEVELOPER</span>
+          <h3>Developer Technology & APIs</h3>
+          <p>Build mapping and spatial analysis applications using ArcGIS REST APIs, SDKs, and scripting tools. Python, JavaScript, .NET and more.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard beige col-12" onclick="openModal('esri6')">
+          <span class="blabel">LICENSING</span>
+          <h3>GIS Licensing & Subscription Management</h3>
+          <p>Role-based access — Creator, Editor, Viewer, and Field Worker types. Flexible subscription options for organizations, including developer and partner plans.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ HERE ═══════════ -->
+  <div id="panel-here" class="company-panel">
+    <div class="bento-section">
+      <div class="bento-header">
+        <span class="company-badge">Location Intel</span>
+        <h2>Location Intelligence & Real-Time Mapping</h2>
+        <p>Location platforms delivering maps, routing, geocoding, and real-time positioning — powering enterprises, automotive, and logistics at scale.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bcard blue col-4" onclick="openModal('here1')">
+          <span class="blabel">MAPS</span>
+          <h3>Dynamic Map Content</h3>
+          <p>Updated map data from fleet and community sources for always-current spatial context.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard mint col-4" onclick="openModal('here2')">
+          <span class="blabel">DATA</span>
+          <h3>GIS Data Suites</h3>
+          <p>Comprehensive geospatial datasets for analysis, enrichment, and integration into enterprise platforms.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard navy col-4" onclick="openModal('here3')">
+          <span class="blabel">AUTOMOTIVE</span>
+          <h3>Maps for ADAS & HAD</h3>
+          <p>High-definition maps for advanced driver assistance and highly automated driving applications.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard green col-6" onclick="openModal('here4')">
+          <span class="blabel">SERVICES</span>
+          <h3>Geocoding, Routing & Positioning</h3>
+          <p>Convert addresses to coordinates, calculate optimal fleet routes with real-time traffic, and position assets indoors and outdoors with centimeter precision.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard gray col-6" onclick="openModal('here5')">
+          <span class="blabel">RENDERING</span>
+          <h3>Map Rendering & Tour Planning</h3>
+          <p>Customizable, high-performance map tiles and vector rendering plus multi-stop route optimization for field service and last-mile delivery.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard maroon col-4" onclick="openModal('here6')">
+          <span class="blabel">PRIVACY</span>
+          <h3>Anonymizers</h3>
+          <p>Privacy-preserving tools for anonymizing location data before analysis or sharing — GDPR-ready.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard blue col-4" onclick="openModal('here7')">
+          <span class="blabel">DEV</span>
+          <h3>Software Development Kits</h3>
+          <p>Developer SDKs for embedding maps, routing, and search into any mobile or web application.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard beige col-4" onclick="openModal('here8')">
+          <span class="blabel">APPS</span>
+          <h3>Navigation Applications</h3>
+          <p>Turn-by-turn navigation for consumers and professionals, with enterprise fleet solutions.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MAPBOX ═══════════ -->
+  <div id="panel-mapbox" class="company-panel">
+    <div class="bento-section">
+      <div class="bento-header">
+        <span class="company-badge">Dev Platform</span>
+        <h2>Developer-Focused Mapping Platforms</h2>
+        <p>The location platform of choice for developers and enterprises — maps, navigation, search, and AI-powered location intelligence through flexible APIs and SDKs.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bcard navy col-4" onclick="openModal('mb1')">
+          <span class="blabel">WEB</span>
+          <h3>JavaScript Libraries</h3>
+          <p>Immersive, high-performance vector maps for the web. 60fps rendering with full Studio customization.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard blue col-4" onclick="openModal('mb2')">
+          <span class="blabel">MOBILE</span>
+          <h3>Mobile Maps SDK</h3>
+          <p>Powerful maps for iOS and Android with offline support, custom styles, and navigation integration.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard green col-4" onclick="openModal('mb3')">
+          <span class="blabel">DESIGN</span>
+          <h3>Studio</h3>
+          <p>Design beautiful, on-brand custom map styles without code. Fine-tune colors, fonts, and layers visually.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard beige col-6" onclick="openModal('mb4')">
+          <span class="blabel">SEARCH</span>
+          <h3>Geocoding, Search Box & Address Autofill</h3>
+          <p>Geolocate and validate addresses globally. User-friendly search UI with autocomplete, categories, and intelligent address suggestions to reduce form friction.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard mint col-6" onclick="openModal('mb5')">
+          <span class="blabel">TILING</span>
+          <h3>Mapbox Tiling Services</h3>
+          <p>Host and serve custom geospatial data as map layers. Scalable tile generation for large enterprise datasets.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard gray col-4" onclick="openModal('mb6')">
+          <span class="blabel">DATA</span>
+          <h3>Traffic & Movement Data</h3>
+          <p>Live traffic conditions and population mobility patterns through space and time for analytics.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard maroon col-4" onclick="openModal('mb7')">
+          <span class="blabel">AI</span>
+          <h3>Location AI & MapGPT</h3>
+          <p>AI integrated with geospatial data. MapGPT is a location-intelligent AI assistant for spatial queries.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard navy col-4" onclick="openModal('mb8')">
+          <span class="blabel">NEW</span>
+          <h3>Feedback Agents</h3>
+          <p>Capture real-time user feedback to continuously improve map accuracy and coverage globally.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ HEXAGON ═══════════ -->
+  <div id="panel-hexagon" class="company-panel">
+    <div class="bento-section">
+      <div class="bento-header">
+        <span class="company-badge">Industrial & Geo</span>
+        <h2>Industrial & Geospatial Solutions</h2>
+        <p>Sensors, software, and autonomous solutions from precision surveying and geospatial to industrial asset management, public safety, and construction technology.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bcard blue col-6" onclick="openModal('hex1')">
+          <span class="blabel">GEOSPATIAL</span>
+          <h3>Geospatial Solutions & Reality Capture</h3>
+          <p>3D digital realities of the physical world using laser scanning and imaging technologies.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard gray col-6" onclick="openModal('hex2')">
+          <span class="blabel">CONSTRUCTION</span>
+          <h3>3D Modeling, BIM & Surveying</h3>
+          <p>Building information modeling with geospatial integration. Professional surveying, topographic mapping, and engineering-grade spatial data collection tools.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard navy col-4" onclick="openModal('hex3')">
+          <span class="blabel">ASSETS</span>
+          <h3>HxGN EAM</h3>
+          <p>Enterprise Asset Management — greater visibility into assets for better capital spending and lifecycle decisions.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard green col-4" onclick="openModal('hex4')">
+          <span class="blabel">PROJECT</span>
+          <h3>EcoSys</h3>
+          <p>Enterprise Project Performance software with predictability and control across the full project lifecycle.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard maroon col-4" onclick="openModal('hex5')">
+          <span class="blabel">SAFETY</span>
+          <h3>Collision Avoidance System</h3>
+          <p>360-degree awareness to protect people, vehicles, and equipment with real-time safety monitoring on site.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard mint col-6" onclick="openModal('hex6')">
+          <span class="blabel">AUTOMATION</span>
+          <h3>Machine Control & Automation</h3>
+          <p>Solutions to increase accuracy, productivity, and uptime on construction and industrial sites with cutting-edge automation.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard beige col-6" onclick="openModal('hex7')">
+          <span class="blabel">EMERGENCY</span>
+          <h3>Public Safety Platform & Field Systems</h3>
+          <p>Integrate emergency response and analytics seamlessly. Digital tools for field teams to collect and act on data in real time.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ VEXCEL ═══════════ -->
+  <div id="panel-vexcel" class="company-panel">
+    <div class="bento-section">
+      <div class="bento-header">
+        <span class="company-badge">Aerial Imagery</span>
+        <h2>Aerial & High-Resolution Imagery</h2>
+        <p>Aerial imagery and geospatial data programs covering countries at scale, from oblique capture to AI-powered property intelligence.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bcard blue col-4" onclick="openModal('vex1')">
+          <span class="blabel">IMAGERY</span>
+          <div class="card-img-block"><span>OBLIQUE</span></div>
+          <h3>Oblique Imagery</h3>
+          <p>All four cardinal directions at 45°. 7.5cm resolution for detailed property inspection.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard mint col-4" onclick="openModal('vex2')">
+          <span class="blabel">IMAGERY</span>
+          <div class="card-img-block"><span>ORTHO</span></div>
+          <h3>Ortho Imagery</h3>
+          <p>Orthorectified imagery for mapping, analysis, and change detection workflows.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard green col-4" onclick="openModal('vex3')">
+          <span class="blabel">IMAGERY</span>
+          <div class="card-img-block">🌈 <span>MULTISPECTRAL</span></div>
+          <h3>Multispectral Imagery</h3>
+          <p>NIR and CIR imagery revealing vegetation health, impervious surfaces, and land use beyond visible light.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard maroon col-6" onclick="openModal('vex4')">
+          <span class="blabel">EMERGENCY</span>
+          <h3>Gray Sky Imagery</h3>
+          <p>Rapid high-resolution aerial imagery deployment after major disasters — hurricanes, tornadoes, wildfires — for rapid damage assessment and emergency response.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard navy col-6" onclick="openModal('vex5')">
+          <span class="blabel">ELEVATION</span>
+          <h3>Elevate — DSM & DTM</h3>
+          <p>High-resolution Digital Surface and Digital Terrain Models for terrain analysis and flood modeling.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard beige col-6" onclick="openModal('vex6')">
+          <span class="blabel">3D</span>
+          <h3>3D Cities</h3>
+          <p>Photorealistic 3D mesh models of urban areas for planning, simulation, and digital twin applications.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard gray col-6" onclick="openModal('vex7')">
+          <span class="blabel">AI</span>
+          <h3>Elements AI</h3>
+          <p>AI applied to high-resolution aerial imagery to identify and extract features from properties, buildings, and roadways automatically.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MAXAR ═══════════ -->
+  <div id="panel-maxar" class="company-panel">
+    <div class="bento-section">
+      <div class="bento-header">
+        <span class="company-badge">Satellite EO</span>
+        <h2>Satellite & Earth Observation Platforms</h2>
+        <p>World-class satellite imagery, spatial intelligence platforms, and Earth observation data products powering defense, government, and enterprise geospatial decisions.</p>
+      </div>
+      <div class="bento-grid">
+        <div class="bcard maroon col-4" onclick="openModal('max2')">
+          <span class="blabel">AI</span>
+          <h3>AI for Imagery</h3>
+          <p>AI-powered analytics layer for deriving actionable intelligence from satellite and aerial imagery automatically.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard blue col-4" onclick="openModal('max3')">
+          <span class="blabel">INTEGRATION</span>
+          <h3>Custom GIS Development & Integration</h3>
+          <p>Development environment for custom geospatial apps plus integration hub connecting satellite feeds and enterprise systems.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard mint col-4" onclick="openModal('max1')">
+          <span class="blabel">PLATFORM</span>
+          <h3>Spatial Intelligence Platforms</h3>
+          <p>Large-scale geospatial data environments with API-driven access, temporal analysis, and distributed cloud architectures.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard green col-6" onclick="openModal('max4')">
+          <span class="blabel">MISSION</span>
+          <h3>Mission-Critical Geospatial Analytics</h3>
+          <p>Mission-critical geospatial intelligence for rapid image exploitation and persistent monitoring — tracking activity across areas of interest over time with change detection.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard gray col-6" onclick="openModal('max5')">
+          <span class="blabel">LIVE</span>
+          <h3>Real-Time Tasking</h3>
+          <p>Task satellite collection in near-real-time to capture imagery of dynamic, fast-changing events anywhere on Earth. Near-instant response for time-critical operations.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard beige col-4" onclick="openModal('max6')">
+          <span class="blabel">BASEMAP</span>
+          <h3>Enterprise Basemap Solutions</h3>
+          <p>Global high-resolution satellite imagery basemap updated regularly — the foundation for enterprise mapping.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard navy col-4" onclick="openModal('max7')">
+          <span class="blabel">MOSAIC</span>
+          <h3>Mosaic & Terrain</h3>
+          <p>Cloud-free blended imagery mosaics plus global DEMs and DSMs derived from stereo satellite imagery.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+        <div class="bcard blue col-4" onclick="openModal('max8')">
+          <span class="blabel">SENSORS</span>
+          <h3>Radar & WorldView</h3>
+          <p>Radar for all-weather day/night collection, combined with very high-resolution optical sensor capabilities.</p>
+          <button class="bbtn">EXPLORE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ ALL MODALS ═══════════ -->
+
+  <!-- ESRI -->
+  <div class="modal-overlay" id="esri1" onclick="closeModal('esri1')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Enterprise GIS Platform</h2><p><strong>The foundational system for GIS & mapping across the organization:</strong></p><ul><li><strong>Deployment Flexibility:</strong> Run on-premises, in your own cloud (Azure, AWS), or in a hybrid configuration based on security and compliance needs</li><li><strong>Hardware & Sizing:</strong> Understanding server configurations, storage strategies, and performance tuning for large-scale enterprise deployments</li><li><strong>Security & Networking:</strong> Role-based access control, LDAP/AD integration, SSL, and DMZ configurations for secure enterprise access</li><li><strong>Web Services:</strong> REST API architecture, map services, feature services, and web adaptor configuration</li><li><strong>Scalability:</strong> Multi-machine deployments, load balancing, and high availability configurations for mission-critical environments</li></ul><button class="modal-close" onclick="closeModal('esri1')">Close</button></div></div>
+
+  <div class="modal-overlay" id="esri2" onclick="closeModal('esri2')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Cloud GIS</h2><p><strong>Complete SaaS mapping platforms — no infrastructure to manage:</strong></p><ul><li><strong>Content Management:</strong> Host, organize, and share maps, layers, apps, and dashboards across the organization</li><li><strong>Living Atlas:</strong> Access to curated global data content including basemaps, imagery, and demographic data</li><li><strong>App Builders:</strong> Instant Apps, Experience Builder, StoryMaps — no-code tools to build compelling web experiences</li><li><strong>Field Operations:</strong> Field Maps and Workforce for mobile data collection and task management</li><li><strong>Credits & Licensing:</strong> Understanding credit consumption, user types, and organizational subscription management</li></ul><button class="modal-close" onclick="closeModal('esri2')">Close</button></div></div>
+
+  <div class="modal-overlay" id="esri3" onclick="closeModal('esri3')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Professional Desktop GIS</h2><p><strong>The world's leading professional GIS desktop application:</strong></p><ul><li><strong>Spatial Analysis:</strong> Geoprocessing tools, ModelBuilder workflows, and Python scripting for advanced analysis</li><li><strong>3D Visualization:</strong> Scene views, multipatch features, and 3D analysis for urban planning and infrastructure</li><li><strong>Cartography:</strong> Professional map production, layout design, and automated map series for print and digital</li><li><strong>Data Editing:</strong> Versioned editing, topology, and attribute rules for maintaining data integrity</li><li><strong>Integration:</strong> Seamless publish to ArcGIS Online and Enterprise, and integration with Microsoft Office workflows</li></ul><button class="modal-close" onclick="closeModal('esri3')">Close</button></div></div>
+
+  <div class="modal-overlay" id="esri4" onclick="closeModal('esri4')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Mapping, Analytics & Data Management</h2><p><strong>The core capabilities that make ArcGIS the platform of choice:</strong></p><ul><li><strong>Mapping:</strong> Dynamic web maps, smart mapping with data-driven styles, and multi-scale map design for any audience</li><li><strong>Spatial Analytics:</strong> Raster analysis, network analysis, suitability modeling, and space-time pattern mining</li><li><strong>Data Management:</strong> Geodatabase design, feature datasets, relationship classes, and enterprise data governance</li><li><strong>Real-Time:</strong> Velocity for streaming IoT data, dashboards for live situational awareness</li><li><strong>AI Integration:</strong> GeoAI tools, image classification, object detection, and predictive analytics</li></ul><button class="modal-close" onclick="closeModal('esri4')">Close</button></div></div>
+
+  <div class="modal-overlay" id="esri5" onclick="closeModal('esri5')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Developer Technology & APIs</h2><p><strong>Building custom geospatial applications on the ArcGIS platform:</strong></p><ul><li><strong>Maps SDK:</strong> JavaScript, Python, .NET, Java, Swift, and Kotlin SDKs for building spatial apps</li><li><strong>REST Services:</strong> Consuming and publishing REST API endpoints for custom integrations</li><li><strong>Python (ArcPy):</strong> Automating GIS workflows, batch processing, and custom geoprocessing tools</li><li><strong>AppStudios:</strong> Low-code and pro-code app development for mobile and web experiences</li><li><strong>Notebooks:</strong> Jupyter-based spatial data science environment</li></ul><button class="modal-close" onclick="closeModal('esri5')">Close</button></div></div>
+
+  <div class="modal-overlay" id="esri6" onclick="closeModal('esri6')"><div class="modal-box" onclick="event.stopPropagation()"><h2>GIS Licensing & Subscription Management</h2><p><strong>Understanding flexible licensing and procurement options:</strong></p><ul><li><strong>User Types:</strong> Right-sized access for every role from Creator to Viewer to Field Worker</li><li><strong>Enterprise Agreements:</strong> ELA options for large organizations with predictable pricing and full platform access</li><li><strong>Partner Resellers:</strong> Working with authorized partner network for regional procurement and support</li><li><strong>Developer Subscriptions:</strong> Developer plans for building and publishing custom applications</li></ul><button class="modal-close" onclick="closeModal('esri6')">Close</button></div></div>
+
+  <!-- HERE -->
+  <div class="modal-overlay" id="here1" onclick="closeModal('here1')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Dynamic Mapping Expertise</h2><p><strong>How I work with live map content:</strong></p><ul><li><strong>Real-Time Updates:</strong> Leveraging constantly refreshed spatial data to ensure analyses stay current</li><li><strong>Global Reach:</strong> Handling maps and road networks across multiple regions, including urban and lane-level data</li><li><strong>Location Insights:</strong> Analyzing points of interest, addresses, and place data to support business decisions</li><li><strong>Change Monitoring:</strong> Tracking construction, road changes, and updates to keep mapping projects accurate</li></ul><button class="modal-close" onclick="closeModal('here1')">Close</button></div></div>
+
+  <div class="modal-overlay" id="here2" onclick="closeModal('here2')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Geospatial Data & Analysis</h2><p><strong>Datasets and insights I work with:</strong></p><ul><li><strong>Administrative Boundaries:</strong> Using global boundaries for spatial analysis, overlays, and strategic planning</li><li><strong>Demographics & Lifestyle Data:</strong> Applying population, income, and behavior data to support market analysis</li><li><strong>Automotive & Road Attributes:</strong> Understanding road curvature, slope, speed, and lane data for mobility projects</li><li><strong>GIS Integration:</strong> Experienced with ArcGIS, QGIS, and standard formats for enterprise GIS workflows</li></ul><button class="modal-close" onclick="closeModal('here2')">Close</button></div></div>
+
+  <div class="modal-overlay" id="here3" onclick="closeModal('here3')"><div class="modal-box" onclick="event.stopPropagation()"><h2>High-Definition Mapping for Mobility</h2><p><strong>Capabilities for advanced vehicle and mobility projects:</strong></p><ul><li><strong>ADAS Mapping:</strong> Understanding lane-level attributes for driver assistance or automated systems</li><li><strong>Precise HD Mapping:</strong> Working with highly accurate, real-time mapping data for autonomous applications</li><li><strong>Sensor Data Integration:</strong> Combining vehicle and sensor data into actionable spatial insights</li><li><strong>Continuous Updates:</strong> Maintaining current map content for dynamic planning and analysis</li></ul><button class="modal-close" onclick="closeModal('here3')">Close</button></div></div>
+
+  <div class="modal-overlay" id="here4" onclick="closeModal('here4')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Geocoding, Routing & Positioning</h2><p><strong>Location services applied strategically:</strong></p><ul><li><strong>Geocoding & Search:</strong> Translating addresses and places into actionable spatial data for analysis</li><li><strong>Optimized Routing:</strong> Planning routes using traffic, toll, and efficiency insights for logistics or pedestrian workflows</li><li><strong>Hybrid Positioning:</strong> Combining GPS, Wi-Fi, Bluetooth, and cellular for accurate indoor and outdoor location</li><li><strong>Service Area Analysis:</strong> Calculating reachable zones based on time or distance for operations planning</li></ul><button class="modal-close" onclick="closeModal('here4')">Close</button></div></div>
+
+  <div class="modal-overlay" id="here5" onclick="closeModal('here5')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Map Visualization & Route Planning</h2><p><strong>Delivering visual and operational insights:</strong></p><ul><li><strong>Custom Map Styling:</strong> Designing clear, branded map visualizations for web, mobile, or print</li><li><strong>Raster & Vector Mapping:</strong> Providing versatile map outputs for different use cases and audiences</li><li><strong>Route & Tour Planning:</strong> Planning multi-stop routes with constraints for logistics or field teams</li><li><strong>Fleet Efficiency:</strong> Optimizing multiple vehicle routes to reduce costs and improve coverage</li></ul><button class="modal-close" onclick="closeModal('here5')">Close</button></div></div>
+
+  <div class="modal-overlay" id="here6" onclick="closeModal('here6')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Data Privacy & Anonymization</h2><p><strong>Responsible handling of location data:</strong></p><ul><li><strong>Privacy Compliance:</strong> Ensuring all spatial analyses meet GDPR and industry standards</li><li><strong>Anonymized Insights:</strong> Extracting patterns from sensitive data without exposing personal information</li><li><strong>Secure Processing:</strong> Working with sensitive datasets locally when needed to protect confidentiality</li></ul><button class="modal-close" onclick="closeModal('here6')">Close</button></div></div>
+
+  <div class="modal-overlay" id="here7" onclick="closeModal('here7')"><div class="modal-box" onclick="event.stopPropagation()"><h2>GIS Development & Integration</h2><p><strong>Integrating geospatial capabilities into applications:</strong></p><ul><li><strong>Interactive Maps:</strong> Embedding dynamic maps into web and mobile apps for analysis and visualization</li><li><strong>Mobile GIS Solutions:</strong> Supporting offline maps and navigation for field applications</li><li><strong>Cloud Workflows:</strong> Managing large-scale spatial datasets in cloud environments</li><li><strong>API Integration:</strong> Connecting geospatial insights to enterprise tools or custom workflows</li></ul><button class="modal-close" onclick="closeModal('here7')">Close</button></div></div>
+
+  <div class="modal-overlay" id="here8" onclick="closeModal('here8')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Navigation & Fleet Solutions</h2><p><strong>Helping teams and users navigate effectively:</strong></p><ul><li><strong>Turn-by-Turn Guidance:</strong> Navigation experiences for apps, fleets, or automotive integration</li><li><strong>Offline Capabilities:</strong> Ensuring access to maps and directions even without connectivity</li><li><strong>Enterprise Routing:</strong> Optimizing fleet routes, ETAs, and driver workflows for operational efficiency</li></ul><button class="modal-close" onclick="closeModal('here8')">Close</button></div></div>
+
+  <!-- MAPBOX -->
+  <div class="modal-overlay" id="mb1" onclick="closeModal('mb1')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Web Mapping & Interactive Visualization</h2><p><strong>Modern web-based mapping approaches:</strong></p><ul><li><strong>Vector-Based Mapping:</strong> Client-side rendering enables smooth, responsive maps at any scale</li><li><strong>3D & Terrain Visualization:</strong> Elevation, hillshading, and 3D effects to add context and realism to spatial data</li><li><strong>Custom Data Layers:</strong> Overlaying analytical or business data on top of base maps for storytelling</li><li><strong>Accessibility Awareness:</strong> Inclusive design so map experiences work for a wide range of users</li></ul><button class="modal-close" onclick="closeModal('mb1')">Close</button></div></div>
+
+  <div class="modal-overlay" id="mb2" onclick="closeModal('mb2')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Mobile Mapping & Field Applications</h2><p><strong>Where mobile GIS adds real operational value:</strong></p><ul><li><strong>Offline Mapping:</strong> Supporting field teams and mobile users who operate without reliable connectivity</li><li><strong>Consistent Branding:</strong> Custom map styles so mobile maps align with product or brand identity</li><li><strong>Navigation Use Cases:</strong> Turn-by-turn navigation in logistics, field service, and mobility apps</li><li><strong>Mobile Performance:</strong> Battery, memory, and performance constraints on mobile devices</li></ul><button class="modal-close" onclick="closeModal('mb2')">Close</button></div></div>
+
+  <div class="modal-overlay" id="mb3" onclick="closeModal('mb3')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Cartography & Map Design</h2><p><strong>Why map design matters for decision-making:</strong></p><ul><li><strong>Layer-Based Styling:</strong> Controlling colors, labels, and visibility to highlight what matters at different zoom levels</li><li><strong>Design Systems for Maps:</strong> Reusable styling components to maintain consistency across projects</li><li><strong>Custom Data Visualization:</strong> Styling proprietary or analytical datasets alongside base map layers</li><li><strong>Iterative Design:</strong> Managing style versions and refinements as map requirements evolve</li></ul><button class="modal-close" onclick="closeModal('mb3')">Close</button></div></div>
+
+  <div class="modal-overlay" id="mb4" onclick="closeModal('mb4')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Location Search & Address Intelligence</h2><p><strong>How users interact with location data:</strong></p><ul><li><strong>Geocoding & Reverse Geocoding:</strong> Translating addresses and coordinates into usable spatial insights</li><li><strong>User-Friendly Search:</strong> Understanding how search UX impacts engagement and usability</li><li><strong>Address Autofill:</strong> Improving form accuracy and reducing friction in customer-facing workflows</li><li><strong>Consistent Location Data:</strong> Stored geocoding results for repeatable analysis and reporting</li></ul><button class="modal-close" onclick="closeModal('mb4')">Close</button></div></div>
+
+  <div class="modal-overlay" id="mb5" onclick="closeModal('mb5')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Custom Data Hosting & Tiling</h2><p><strong>Scaling geospatial data for visualization and analysis:</strong></p><ul><li><strong>Custom Tilesets:</strong> Converting raw spatial data into performant map layers</li><li><strong>Large Dataset Handling:</strong> Workflows for managing and serving large or frequently updated datasets</li><li><strong>Automated Updates:</strong> Pipelines that keep map layers in sync with changing data sources</li><li><strong>Enterprise Data Integration:</strong> Proprietary datasets alongside base maps for business insight</li></ul><button class="modal-close" onclick="closeModal('mb5')">Close</button></div></div>
+
+  <div class="modal-overlay" id="mb6" onclick="closeModal('mb6')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Traffic & Movement Analytics</h2><p><strong>Using mobility data to understand real-world behavior:</strong></p><ul><li><strong>Traffic Patterns:</strong> Live and historical traffic data for routing, planning, and ETA analysis</li><li><strong>Movement Trends:</strong> Anonymized mobility data for retail, urban planning, and logistics</li><li><strong>Boundary Data:</strong> Official administrative boundaries for spatial reporting and regional analysis</li></ul><button class="modal-close" onclick="closeModal('mb6')">Close</button></div></div>
+
+  <div class="modal-overlay" id="mb7" onclick="closeModal('mb7')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Location AI & Spatial Intelligence</h2><p><strong>The intersection of AI and geospatial data:</strong></p><ul><li><strong>Location-Aware AI:</strong> How AI can interpret and respond to geographic context</li><li><strong>Natural Language Search:</strong> Intent-based search to improve how users find places</li><li><strong>Human-in-the-Loop Feedback:</strong> AI-assisted workflows to validate and improve map data</li><li><strong>Spatial Reasoning:</strong> Grounding AI outputs in real-world geography and coordinates</li></ul><button class="modal-close" onclick="closeModal('mb7')">Close</button></div></div>
+
+  <div class="modal-overlay" id="mb8" onclick="closeModal('mb8')"><div class="modal-box" onclick="event.stopPropagation()"><h2>User Feedback & Map Improvement</h2><p><strong>Keeping maps accurate and relevant over time:</strong></p><ul><li><strong>Community Contributions:</strong> User-submitted corrections to improve map quality</li><li><strong>Validation Workflows:</strong> Automated and manual review processes that maintain data integrity</li><li><strong>Coverage Growth:</strong> Expanding map detail in underserved or rapidly changing regions</li></ul><button class="modal-close" onclick="closeModal('mb8')">Close</button></div></div>
+
+  <!-- HEXAGON -->
+  <div class="modal-overlay" id="hex1" onclick="closeModal('hex1')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Geospatial Reality Capture</h2><p><strong>How physical environments become digital insight:</strong></p><ul><li><strong>Precision Data Capture:</strong> GNSS, laser scanning, and surveying technologies capture highly accurate spatial data</li><li><strong>Point Cloud Workflows:</strong> Processing, classifying, and analyzing 3D point clouds for engineering and planning</li><li><strong>Mobile Mapping:</strong> Vehicle-based scanning along roads, railways, and infrastructure corridors</li><li><strong>Digital Twins:</strong> Realistic 3D representations of the physical world for design and decision-making</li></ul><button class="modal-close" onclick="closeModal('hex1')">Close</button></div></div>
+
+  <div class="modal-overlay" id="hex2" onclick="closeModal('hex2')"><div class="modal-box" onclick="event.stopPropagation()"><h2>3D Modeling, BIM & Surveying</h2><p><strong>Bridging geospatial data and the built environment:</strong></p><ul><li><strong>BIM & GIS Alignment:</strong> Geospatial context improves accuracy and coordination in BIM models</li><li><strong>Land & Boundary Data:</strong> Cadastral concepts and legal boundaries that underpin land development</li><li><strong>Infrastructure Modeling:</strong> Spatial accuracy applied to roads, rail, utilities, and large-scale projects</li><li><strong>Design vs Reality:</strong> Comparing as-designed models with real-world conditions for quality control</li></ul><button class="modal-close" onclick="closeModal('hex2')">Close</button></div></div>
+
+  <div class="modal-overlay" id="hex3" onclick="closeModal('hex3')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Asset Management & Infrastructure Operations</h2><p><strong>Managing physical assets through location intelligence:</strong></p><ul><li><strong>Asset Inventories:</strong> Tracking infrastructure with spatial context, condition data, and maintenance history</li><li><strong>Predictive Maintenance Concepts:</strong> Sensor data supporting proactive maintenance strategies</li><li><strong>Field Workflows:</strong> Managing and visualizing work orders across geographically distributed teams</li><li><strong>Lifecycle Planning:</strong> Data-driven long-term investment and replacement decisions</li></ul><button class="modal-close" onclick="closeModal('hex3')">Close</button></div></div>
+
+  <div class="modal-overlay" id="hex4" onclick="closeModal('hex4')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Project Controls & Capital Planning</h2><p><strong>Performance across complex projects:</strong></p><ul><li><strong>Cost & Budget Awareness:</strong> Tracking budgets, forecasts, and earned value across projects</li><li><strong>Schedule Integration:</strong> How timelines and costs align in large capital programs</li><li><strong>Change Management:</strong> Tracking scope changes and their impact on cost and delivery</li><li><strong>Portfolio Visibility:</strong> Dashboards and reporting for executive-level decision-making</li></ul><button class="modal-close" onclick="closeModal('hex4')">Close</button></div></div>
+
+  <div class="modal-overlay" id="hex5" onclick="closeModal('hex5')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Industrial Safety & Risk Awareness</h2><p><strong>Reducing risk through spatial and sensor data:</strong></p><ul><li><strong>Situational Awareness:</strong> Proximity detection improves safety around heavy equipment</li><li><strong>Human–Machine Interaction:</strong> Recognizing blind spots and risk zones on industrial sites</li><li><strong>Fleet-Level Visibility:</strong> Monitoring safety conditions across multiple machines and locations</li><li><strong>Safety Analytics:</strong> Near-miss and incident data to identify trends and prevent accidents</li></ul><button class="modal-close" onclick="closeModal('hex5')">Close</button></div></div>
+
+  <div class="modal-overlay" id="hex6" onclick="closeModal('hex6')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Construction Automation & Machine Control</h2><p><strong>How digital models guide physical work:</strong></p><ul><li><strong>Machine Guidance Concepts:</strong> 3D models controlling grading and excavation equipment</li><li><strong>Automation in Paving & Drilling:</strong> Automated workflows that improve accuracy and consistency</li><li><strong>Design-to-Field Connectivity:</strong> Digital design data connected directly to construction equipment</li><li><strong>Efficiency & Accuracy:</strong> Automation reduces rework, material waste, and downtime</li></ul><button class="modal-close" onclick="closeModal('hex6')">Close</button></div></div>
+
+  <div class="modal-overlay" id="hex7" onclick="closeModal('hex7')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Public Safety & Field Operations</h2><p><strong>Location intelligence in time-critical environments:</strong></p><ul><li><strong>Dispatch & Coordination:</strong> Real-time location data supporting emergency response</li><li><strong>Operational Awareness:</strong> Visualizing incidents, resources, and personnel on a live map</li><li><strong>Field Data Collection:</strong> Mobile tools to capture inspections, updates, and as-built information</li><li><strong>Performance Analysis:</strong> Analyzing response patterns and operational metrics for improvement</li></ul><button class="modal-close" onclick="closeModal('hex7')">Close</button></div></div>
+
+  <!-- VEXCEL -->
+  <div class="modal-overlay" id="vex1" onclick="closeModal('vex1')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Oblique Imagery Analysis</h2><p><strong>Understanding built environments from multiple perspectives:</strong></p><ul><li><strong>Multi-Angle Coverage:</strong> Imagery that captures structures from all sides to improve interpretation</li><li><strong>High-Resolution Detail:</strong> Feature-level imagery suitable for property, infrastructure, and urban analysis</li><li><strong>Insurance & Property Use Cases:</strong> Oblique imagery for remote assessments and validation workflows</li><li><strong>Change Monitoring:</strong> Comparing imagery over time to track construction progress and modifications</li></ul><button class="modal-close" onclick="closeModal('vex1')">Close</button></div></div>
+
+  <div class="modal-overlay" id="vex2" onclick="closeModal('vex2')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Ortho Imagery & Base Mapping</h2><p><strong>Reliable top-down imagery for spatial analysis:</strong></p><ul><li><strong>Resolution Tradeoffs:</strong> How imagery resolution impacts mapping accuracy and performance</li><li><strong>True Ortho Concepts:</strong> Corrected imagery for accurate building footprints in dense environments</li><li><strong>Seasonal Collection:</strong> Leaf-off imagery for improved visibility of ground features and infrastructure</li><li><strong>Programmatic Coverage:</strong> Recurring imagery programs for government, utilities, and enterprise users</li></ul><button class="modal-close" onclick="closeModal('vex2')">Close</button></div></div>
+
+  <div class="modal-overlay" id="vex3" onclick="closeModal('vex3')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Multispectral & Environmental Imagery</h2><p><strong>Extracting insight beyond visible light:</strong></p><ul><li><strong>Near-Infrared Analysis:</strong> Vegetation health metrics and land cover classification techniques</li><li><strong>Color Infrared Interpretation:</strong> Differentiating vegetation, water, and land use through spectral composites</li><li><strong>Environmental Monitoring:</strong> Imagery applied to wetlands, wildfire risk, and ecological assessment</li><li><strong>Agricultural Use Cases:</strong> Supporting precision agriculture and crop condition analysis</li></ul><button class="modal-close" onclick="closeModal('vex3')">Close</button></div></div>
+
+  <div class="modal-overlay" id="vex4" onclick="closeModal('vex4')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Disaster Response & Rapid Imagery</h2><p><strong>Using aerial data in time-critical scenarios:</strong></p><ul><li><strong>Rapid Deployment Awareness:</strong> Fast imagery acquisition timelines after major events</li><li><strong>Damage Assessment:</strong> Comparing pre- and post-event imagery to identify and classify impacts</li><li><strong>Insurance Response:</strong> Supporting claims triage and prioritization through remote analysis</li><li><strong>Government & Emergency Use:</strong> Imagery workflows supporting disaster recovery and planning</li></ul><button class="modal-close" onclick="closeModal('vex4')">Close</button></div></div>
+
+  <div class="modal-overlay" id="vex5" onclick="closeModal('vex5')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Elevation Models & Terrain Analysis</h2><p><strong>Understanding the vertical dimension of spatial data:</strong></p><ul><li><strong>Surface vs Terrain Models:</strong> Differentiating built surfaces from bare-earth elevation</li><li><strong>Hydrologic Applications:</strong> Terrain data for flood modeling and stormwater analysis</li><li><strong>Integrated Datasets:</strong> Elevation models alongside imagery for more accurate interpretation</li><li><strong>Infrastructure Planning:</strong> Engineering and environmental workflows with precise elevation data</li></ul><button class="modal-close" onclick="closeModal('vex5')">Close</button></div></div>
+
+  <div class="modal-overlay" id="vex6" onclick="closeModal('vex6')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Urban 3D Modeling & Digital Twins</h2><p><strong>Visualizing cities in three dimensions:</strong></p><ul><li><strong>Photorealistic Meshes:</strong> Textured 3D city models derived from aerial imagery</li><li><strong>Digital Twin Foundations:</strong> 3D geometry supporting simulation and planning platforms</li><li><strong>Platform Interoperability:</strong> Integrating 3D data into modern GIS and visualization tools</li><li><strong>Urban Planning Use Cases:</strong> Shadow studies, visual impact analysis, and design review</li></ul><button class="modal-close" onclick="closeModal('vex6')">Close</button></div></div>
+
+  <div class="modal-overlay" id="vex7" onclick="closeModal('vex7')"><div class="modal-box" onclick="event.stopPropagation()"><h2>AI-Extracted Property Intelligence</h2><p><strong>Turning imagery into structured insight:</strong></p><ul><li><strong>Automated Feature Extraction:</strong> AI identifies property and infrastructure attributes from imagery</li><li><strong>Roof & Solar Analysis:</strong> Condition scoring, material classification, and solar potential workflows</li><li><strong>Transportation Insights:</strong> Imagery-derived analytics for road condition and asset assessment</li><li><strong>Risk & Underwriting Context:</strong> Extracted attributes supporting insurance and risk evaluation</li></ul><button class="modal-close" onclick="closeModal('vex7')">Close</button></div></div>
+
+  <!-- MAXAR -->
+  <div class="modal-overlay" id="max1" onclick="closeModal('max1')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Spatial Intelligence Platforms</h2><p><strong>Working with large-scale geospatial data environments:</strong></p><ul><li><strong>Multi-Source Data Ingestion:</strong> Satellite, aerial, and sensor data processed and organized at scale</li><li><strong>Distributed Architectures:</strong> Cloud and hybrid approaches for geospatial processing</li><li><strong>API-Driven Access:</strong> Programmatic interfaces to query, stream, and analyze spatial datasets</li><li><strong>Temporal Analysis:</strong> Time-series imagery to monitor change across regions and time periods</li></ul><button class="modal-close" onclick="closeModal('max1')">Close</button></div></div>
+
+  <div class="modal-overlay" id="max2" onclick="closeModal('max2')"><div class="modal-box" onclick="event.stopPropagation()"><h2>AI & Machine Learning for Geospatial Insight</h2><p><strong>Transforming imagery into actionable intelligence:</strong></p><ul><li><strong>Object Detection:</strong> AI identifies vehicles, structures, and infrastructure from satellite imagery</li><li><strong>Change Detection:</strong> Machine learning identifying meaningful differences across image collections</li><li><strong>Large-Scale Classification:</strong> Land use and land cover mapping at regional to global scales</li><li><strong>Custom Model Concepts:</strong> How domain-specific models are trained and deployed</li></ul><button class="modal-close" onclick="closeModal('max2')">Close</button></div></div>
+
+  <div class="modal-overlay" id="max3" onclick="closeModal('max3')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Platform Integration & Development</h2><p><strong>Connecting geospatial data to enterprise workflows:</strong></p><ul><li><strong>Low-Code & Pro-Code Tools:</strong> Custom geospatial workflows across skill levels</li><li><strong>System Integration:</strong> Imagery and analytics connected with GIS, cloud, and analytics platforms</li><li><strong>Data Connectivity:</strong> Standardized connectors for rapid deployment and interoperability</li><li><strong>Collaborative Analysis:</strong> Team-based spatial analysis and shared work environments</li></ul><button class="modal-close" onclick="closeModal('max3')">Close</button></div></div>
+
+  <div class="modal-overlay" id="max4" onclick="closeModal('max4')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Persistent Monitoring & Intelligence Workflows</h2><p><strong>Supporting time-sensitive decision making:</strong></p><ul><li><strong>Rapid Analysis Concepts:</strong> Workflows for quick exploitation of new imagery</li><li><strong>Automated Monitoring:</strong> Systems that trigger alerts when change thresholds are met</li><li><strong>Multi-Sensor Fusion:</strong> Combining optical, radar, and other data sources for richer insight</li><li><strong>Analyst Toolsets:</strong> Measurement, annotation, and reporting within imagery platforms</li></ul><button class="modal-close" onclick="closeModal('max4')">Close</button></div></div>
+
+  <div class="modal-overlay" id="max5" onclick="closeModal('max5')"><div class="modal-box" onclick="event.stopPropagation()"><h2>On-Demand Satellite Tasking</h2><p><strong>Understanding real-time Earth observation:</strong></p><ul><li><strong>High-Revisit Constellations:</strong> Modern satellite systems enabling frequent collection</li><li><strong>Automated Tasking:</strong> API-driven collection requests and delivery workflows</li><li><strong>Priority Monitoring:</strong> Tasking supporting emergencies and time-critical operations</li><li><strong>Operational Tradeoffs:</strong> Balancing resolution, revisit rate, and coverage for specific missions</li></ul><button class="modal-close" onclick="closeModal('max5')">Close</button></div></div>
+
+  <div class="modal-overlay" id="max6" onclick="closeModal('max6')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Global Imagery Basemaps</h2><p><strong>Foundational datasets for mapping and visualization:</strong></p><ul><li><strong>Consistent Global Coverage:</strong> Uniform basemaps for analysis and presentation</li><li><strong>Cloud Mitigation:</strong> Techniques used to create visually consistent mosaics</li><li><strong>Resolution Selection:</strong> Imagery detail appropriate for different applications</li><li><strong>Streaming Services:</strong> Tile-based delivery for efficient integration into GIS platforms</li></ul><button class="modal-close" onclick="closeModal('max6')">Close</button></div></div>
+
+  <div class="modal-overlay" id="max7" onclick="closeModal('max7')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Imagery Mosaics & Elevation Data</h2><p><strong>Building spatial context with imagery and terrain:</strong></p><ul><li><strong>Custom Mosaics:</strong> Imagery curated for specific regions and timeframes</li><li><strong>Surface Models:</strong> Elevation products derived from stereo satellite imagery</li><li><strong>Terrain Analysis:</strong> DEMs applied to flood modeling, visibility, and infrastructure planning</li><li><strong>Polar & Remote Coverage:</strong> Elevation data needs in extreme environments</li></ul><button class="modal-close" onclick="closeModal('max7')">Close</button></div></div>
+
+  <div class="modal-overlay" id="max8" onclick="closeModal('max8')"><div class="modal-box" onclick="event.stopPropagation()"><h2>Advanced Sensors & Spectral Data</h2><p><strong>Leveraging diverse satellite sensing capabilities:</strong></p><ul><li><strong>High-Resolution Optical Imagery:</strong> Tradeoffs between spatial, spectral, and temporal resolution</li><li><strong>Agile Constellations:</strong> Next-generation systems supporting frequent revisits</li><li><strong>SAR Fundamentals:</strong> Radar imagery for all-weather, day/night monitoring</li><li><strong>Spectral Applications:</strong> Advanced bands for material identification and environmental analysis</li></ul><button class="modal-close" onclick="closeModal('max8')">Close</button></div></div>
+
+  <!-- FOOTER -->
+  <footer class="bottom-bar">
+    <div class="bottom-left">
+      <div class="get-in-touch">Get In Touch</div>
+      <a href="contact.html" class="lets-talk"><i class="fas fa-paper-plane"></i> Let's Talk</a>
+    </div>
+    <div class="bottom-right social-icons">
+      <i class="fab fa-twitter"></i>
+      <i class="fab fa-linkedin"></i>
+      <i class="fab fa-github"></i>
+      <i class="fab fa-instagram"></i>
+    </div>
+  </footer>
+
+  <script>
+    const bottomBar = document.querySelector('.bottom-bar');
+    window.addEventListener('scroll', () => {
+      bottomBar.classList.toggle('show', window.scrollY > 120);
+    });
+
+    function switchCompany(name, el) {
+      document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.company-panel').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('panel-' + name)?.classList.add('active');
+      window.scrollTo({ top: document.querySelector('.company-selector').offsetTop - 100, behavior: 'smooth' });
+    }
+
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>

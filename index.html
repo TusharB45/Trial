@@ -4,13 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tushar Borse</title>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DJH6XGRB6T"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DJH6XGRB6T');
-  </script>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600&family=M+PLUS+1+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -29,15 +22,62 @@
       overflow-x: hidden;
     }
 
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
     header.navbar {
       position: sticky;
       top: 0;
       font-size: 2.5rem;
       padding: 40px 50px;
       font-weight: 600;
-      background-color: #000;
       z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      background-color: var(--nav-bg, #000);
+      color:            var(--nav-color, #fff);
+      border-bottom:    1px solid var(--nav-border, transparent);
+
+      transition:
+        background-color 0.5s ease,
+        color            0.5s ease,
+        border-color     0.5s ease;
     }
+
+    /* Light theme */
+    header.navbar.light-theme {
+      --nav-bg:     #f8f9fa;
+      --nav-color:  #111;
+      --nav-border: #e8e8e8;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    /* Back button — hidden by default, shown in light theme */
+    .nav-back {
+      font-size: 0.9rem;
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    header.navbar.light-theme .nav-back {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .nav-back:hover { opacity: 0.5 !important; }
+
+    /* Nav title text that switches */
+    .nav-title { transition: none; }
 
     @media (max-width: 768px) {
       header.navbar {
@@ -54,7 +94,7 @@
       padding-bottom: 140px;
     }
 
-    /* ---------- Main White Box ---------- */
+    /* ---------- Main Dark Box ---------- */
     .dark-blue-box {
       width: 100%;
       flex: 1;
@@ -149,26 +189,20 @@
       background-color: rgba(0, 51, 102, 0.08);
       border-left: 4px solid #28a745;
     }
-/* Apply pulse continuously, not just on hover */
-.section-title.white-title {
-  color: #28a745;
-  background-color: rgba(0, 51, 102, 0.08);
-  border-left: 4px solid #28a745;
-  animation: pulse 1.5s infinite;
-}
 
-/* Optional hover effect for transform and shadow only */
-.section-title.white-title:hover {
-  background-color: rgba(0,51,102,0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
+    .section-title.white-title {
+      animation: pulse 1.5s infinite;
+    }
 
+    .section-title.white-title:hover {
+      background-color: rgba(0,51,102,0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
 
-    /* Pulse Animation */
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+      0%   { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+      70%  { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
       100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
     }
 
@@ -198,26 +232,52 @@
       color: #000;
     }
 
-    /* Footer */
+    /* ============================================================
+       PRODUCTS WRAPPER — clean white background, no padding clash
+       ============================================================ */
+    #products-wrapper {
+      width: 100%;
+      background: #f8f9fa;
+      box-sizing: border-box;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
     .bottom-bar {
       position: fixed;
       bottom: -130px;
       left: 0;
       width: 100%;
       height: 130px;
-      background-color: #000;
+
+      background-color: var(--footer-bg,    #000);
+      color:            var(--footer-color,  #fff);
+      border-top:       1px solid var(--footer-border, #333);
+
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 35px;
       box-sizing: border-box;
-      border-top: 1px solid #333;
-      transition: bottom 0.3s ease;
+
+      transition:
+        bottom            0.3s ease,
+        background-color  0.5s ease,
+        color             0.5s ease,
+        border-color      0.5s ease,
+        box-shadow        0.5s ease;
+
       z-index: 1000;
     }
 
-    .bottom-bar.show {
-      bottom: 0;
+    .bottom-bar.show { bottom: 0; }
+
+    .bottom-bar.light-theme {
+      --footer-bg:     #fff;
+      --footer-color:  #111;
+      --footer-border: #e8e8e8;
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.06);
     }
 
     .bottom-left {
@@ -229,6 +289,8 @@
     .get-in-touch {
       font-size: 40px;
       font-weight: 700;
+      color: inherit;
+      transition: color 0.5s ease;
     }
 
     .lets-talk {
@@ -240,16 +302,31 @@
       height: 60px;
       font-size: 16px;
       font-weight: 500;
-      color: #fff;
-      background-color: #111;
-      border-radius: 8px;
       text-decoration: none;
-      transition: transform 0.2s ease, color 0.2s ease;
+      border-radius: 8px;
+
+      color:            var(--letstalk-color,   #fff);
+      background-color: var(--letstalk-bg,      #111);
+      border:           1px solid var(--letstalk-border, transparent);
+
+      transition:
+        color            0.5s ease,
+        background-color 0.5s ease,
+        border-color     0.5s ease,
+        transform        0.2s ease;
     }
 
-    .lets-talk:hover {
-      transform: translateY(-3px);
-      color: #28a745;
+    .lets-talk:hover { transform: translateY(-3px); }
+
+    .bottom-bar.light-theme .lets-talk {
+      --letstalk-color:  #111;
+      --letstalk-bg:     #f0f0f0;
+      --letstalk-border: #ddd;
+    }
+
+    .bottom-bar.light-theme .lets-talk:hover {
+      background-color: #111;
+      color: #fff;
     }
 
     .bottom-right {
@@ -260,9 +337,13 @@
 
     .social-icons i {
       font-size: 30px;
-      color: #fff;
       cursor: pointer;
       transition: transform 0.2s ease, color 0.2s ease;
+      color: var(--icon-color, #fff);
+    }
+
+    .bottom-bar.light-theme .social-icons i {
+      --icon-color: #555;
     }
 
     .social-icons i:hover {
@@ -270,7 +351,6 @@
       color: #28a745;
     }
 
-    /* Mobile-friendly footer styles - ADDED */
     @media (max-width: 768px) {
       .bottom-bar {
         flex-direction: column;
@@ -278,51 +358,17 @@
         padding: 20px;
         gap: 15px;
       }
-
-      .bottom-left {
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-      }
-
-      .bottom-right {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .get-in-touch {
-        font-size: 28px;
-      }
-
-      .lets-talk {
-        width: 100%;
-        max-width: 300px;
-      }
+      .bottom-left { flex-direction: column; width: 100%; text-align: center; }
+      .bottom-right { width: 100%; justify-content: center; }
+      .get-in-touch { font-size: 28px; }
+      .lets-talk { width: 100%; max-width: 300px; }
     }
 
     @media (max-width: 768px) {
-      .white-box {
-        flex-direction: column;
-      }
-
-      .black-part {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .tagline {
-        font-size: 2.2rem;
-        margin-left: 0;
-        text-align: center;
-      }
-
-      .globe-container {
-        position: relative;
-        right: 0;
-        top: 0;
-        transform: none;
-        margin-top: 20px;
-      }
+      .white-box { flex-direction: column; }
+      .black-part { flex-direction: column; align-items: center; }
+      .tagline { font-size: 2.2rem; margin-left: 0; text-align: center; }
+      .globe-container { position: relative; right: 0; top: 0; transform: none; margin-top: 20px; }
     }
 
     /* ----------------- About Me Tab ----------------- */
@@ -384,9 +430,7 @@
       font-size: 14px;
       transition: background-color 0.2s ease;
     }
-    .tab-buttons span:hover {
-      background-color: #28a745;
-    }
+    .tab-buttons span:hover { background-color: #28a745; }
 
     .tab-content {
       padding: 20px;
@@ -394,11 +438,8 @@
       font-size: 1rem;
       line-height: 1.6;
     }
-    .tab-content p {
-      margin-bottom: 16px;
-    }
+    .tab-content p { margin-bottom: 16px; }
 
-    /* Minimized bar */
     .about-tab.minimized {
       width: 200px !important;
       height: 40px !important;
@@ -412,24 +453,348 @@
     }
 
     @media(max-width:768px){
-      .about-tab {
-        width: 95%;
-        height: 70%;
-      }
-      .about-tab.minimized {
-        width: 150px !important;
-        height: 40px !important;
-      }
+      .about-tab { width: 95%; height: 70%; }
+      .about-tab.minimized { width: 150px !important; height: 40px !important; }
+    }
+
+    /* ============================================================
+       PRODUCTS CONTENT STYLES — isolated inside #products-wrapper
+       These mirror products.html's styles but scoped so they don't
+       bleed into index.html's own elements.
+       ============================================================ */
+
+    /* CSS variables for card colors — must be on :root to work */
+    :root {
+      --green: #d4e4d3;
+      --green-dark: #a3c4a2;
+      --blue: #d5e3f5;
+      --blue-dark: #9fbad6;
+      --mint: #d9e8e5;
+      --mint-dark: #a6c4bf;
+      --gray: #e8e8e8;
+      --gray-dark: #b8b8b8;
+      --navy: #2c3e50;
+      --navy-dark: #1a252f;
+      --maroon: #6b2c2c;
+      --maroon-dark: #4a1f1f;
+      --beige: #f0e4d8;
+      --beige-dark: #d4c4b4;
+      --white: #ffffff;
+    }
+
+    #products-wrapper *, #products-wrapper *::before, #products-wrapper *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    #products-wrapper {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      color: #111;
+    }
+
+    /* Hero */
+    #products-wrapper .hero {
+      padding: 70px 50px 50px;
+      border-bottom: 1px solid #e8e8e8;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    #products-wrapper .hero-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    #products-wrapper .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #0f0f0f;
+      max-width: 700px;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+    #products-wrapper .hero p {
+      font-size: 1rem;
+      color: #5a5a5a;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    /* Company selector */
+    #products-wrapper .company-selector {
+      padding: 40px 50px 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    #products-wrapper .ctab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #fff;
+      font-family: inherit;
+      letter-spacing: 0.01em;
+    }
+    #products-wrapper .ctab:hover { color: #111; border-color: #999; background: #f0f0f0; }
+    #products-wrapper .ctab.active { color: #111; border-color: #111; background: #fff; }
+    #products-wrapper .ctab .dot { width: 6px; height: 6px; border-radius: 50%; background: #111; }
+    #products-wrapper .ctab:not(.active) .dot { background: currentColor; }
+
+    /* Panels */
+    #products-wrapper .company-panel { display: none; }
+    #products-wrapper .company-panel.active { display: block; }
+
+    /* Bento wrapper */
+    #products-wrapper .bento-section {
+      padding: 50px 50px 100px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    #products-wrapper .bento-header { margin-bottom: 48px; }
+    #products-wrapper .bento-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: #0f0f0f;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+    #products-wrapper .bento-header p {
+      font-size: 0.95rem;
+      color: #5a5a5a;
+      max-width: 580px;
+      line-height: 1.65;
+    }
+    #products-wrapper .bento-header .company-badge {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 3px 12px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid #bbb;
+      color: #555;
+    }
+
+    /* Bento grid */
+    #products-wrapper .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      grid-auto-rows: minmax(260px, auto);
+    }
+
+    /* Card base */
+    #products-wrapper .bcard {
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1),
+                  box-shadow 0.4s ease,
+                  background 0.35s ease,
+                  color 0.35s ease;
+      cursor: pointer;
+      /* NO background here — color classes set it */
+    }
+    #products-wrapper .bcard:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.12);
+    }
+
+    /* Color variants — use direct values, not variables, for reliability */
+    #products-wrapper .bcard.green  { background: #d4e4d3; color: #111; }
+    #products-wrapper .bcard.blue   { background: #d5e3f5; color: #111; }
+    #products-wrapper .bcard.mint   { background: #d9e8e5; color: #111; }
+    #products-wrapper .bcard.gray   { background: #e8e8e8; color: #111; }
+    #products-wrapper .bcard.navy   { background: #2c3e50; color: #fff; }
+    #products-wrapper .bcard.maroon { background: #6b2c2c; color: #fff; }
+    #products-wrapper .bcard.beige  { background: #f0e4d8; color: #111; }
+
+    /* Hover darkening */
+    #products-wrapper .bcard.green:hover  { background: #a3c4a2; color: #fff; }
+    #products-wrapper .bcard.blue:hover   { background: #9fbad6; color: #fff; }
+    #products-wrapper .bcard.mint:hover   { background: #a6c4bf; color: #fff; }
+    #products-wrapper .bcard.gray:hover   { background: #b8b8b8; color: #fff; }
+    #products-wrapper .bcard.navy:hover   { background: #1a252f; color: #fff; }
+    #products-wrapper .bcard.maroon:hover { background: #4a1f1f; color: #fff; }
+    #products-wrapper .bcard.beige:hover  { background: #d4c4b4; color: #fff; }
+
+    /* Card label */
+    #products-wrapper .bcard .blabel {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      color: inherit;
+      transition: opacity 0.3s;
+    }
+    #products-wrapper .bcard:hover .blabel { opacity: 0.85; }
+
+    #products-wrapper .bcard h3 {
+      font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    #products-wrapper .bcard p {
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0.85;
+      margin-bottom: 16px;
+    }
+    #products-wrapper .bcard .bbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: inherit;
+      text-decoration: none;
+      margin-top: auto;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+    }
+    #products-wrapper .bcard .bbtn::after { content: "→"; font-size: 18px; font-weight: bold; transition: transform 0.25s ease; }
+    #products-wrapper .bcard .bbtn:hover::after { transform: translateX(3px); }
+    #products-wrapper .bcard .bbtn:hover { opacity: 0.7; }
+
+    /* Grid column spans */
+    #products-wrapper .col-4  { grid-column: span 4; }
+    #products-wrapper .col-6  { grid-column: span 6; }
+    #products-wrapper .col-12 { grid-column: span 12; }
+
+    /* Icon block */
+    #products-wrapper .bcard .card-img-block {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.03));
+      border-radius: 10px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 20px;
+      gap: 10px;
+      font-size: 1.5rem;
+    }
+    #products-wrapper .bcard .card-img-block span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      opacity: 0.55;
+      letter-spacing: 0.1em;
+      font-family: inherit;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 0.25s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .modal-box {
+      background: white;
+      width: 90%;
+      max-width: 680px;
+      padding: 52px 44px;
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-box h2 { font-size: 1.9rem; font-weight: 700; margin-bottom: 24px; color: #0f0f0f; letter-spacing: -0.03em; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .modal-box p  { font-size: 16px; line-height: 1.75; color: #333; margin-bottom: 24px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .modal-box ul { list-style: none; margin-bottom: 28px; padding: 0; }
+    .modal-box li { position: relative; padding-left: 32px; margin-bottom: 16px; font-size: 15px; color: #444; line-height: 1.7; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .modal-box li::before { content: '→'; position: absolute; left: 0; color: #0066ff; font-weight: 700; font-size: 18px; }
+    .modal-box strong { color: #0f0f0f; font-weight: 600; }
+    .modal-box .modal-close {
+      padding: 16px 36px;
+      background: #0f0f0f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      transition: all 0.25s ease;
+    }
+    .modal-box .modal-close:hover { background: #2a2a2a; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .modal-box::-webkit-scrollbar { width: 8px; }
+    .modal-box::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 4px; }
+    .modal-box::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 4px; }
+    .modal-box::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
+
+    /* Responsive products */
+    @media (max-width: 1200px) {
+      #products-wrapper .bento-grid { grid-template-columns: 1fr 1fr; }
+      #products-wrapper .bcard { grid-column: span 1 !important; }
+      #products-wrapper .hero,
+      #products-wrapper .company-selector { padding-left: 30px; padding-right: 30px; }
+      #products-wrapper .bento-section { padding: 40px 30px 100px; }
+    }
+    @media (max-width: 640px) {
+      #products-wrapper .bento-grid { grid-template-columns: 1fr; }
+      #products-wrapper .hero,
+      #products-wrapper .company-selector,
+      #products-wrapper .bento-section { padding-left: 20px; padding-right: 20px; }
+      .modal-box { padding: 36px 28px; }
     }
   </style>
 </head>
 <body>
 
-  <header class="navbar">
-    Hii, I'm Tushar
+  <header class="navbar" id="main-navbar">
+    <span class="nav-title" id="nav-title">Hii, I'm Tushar</span>
+    <a href="#top" class="nav-back" id="nav-back-btn" onclick="scrollToTop(event)">
+      <i class="fas fa-arrow-left"></i> Back
+    </a>
   </header>
 
-  <main class="page-container">
+  <main class="page-container" id="top">
     <section class="dark-blue-box">
       <h1 class="dark-blue-heading">Welcome to My website</h1>
 
@@ -439,7 +804,6 @@
           <div id="about-trigger" class="section-title white-title">About Me</div>
           <div id="education-trigger" class="section-title white-title">Education</div>
           <div id="experience-trigger" class="section-title white-title">Experience</div>
-
         </div>
 
         <div class="black-part">
@@ -448,7 +812,6 @@
             guide for enterprise GIS solutions and<br>
             spatial innovation
           </div>
-
           <div class="globe-container">
             <iframe src="globe.html" class="globe-iframe" loading="lazy"></iframe>
           </div>
@@ -458,10 +821,13 @@
 
     <!-- PART 2 -->
     <section id="part2-wrapper"></section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products-wrapper"></section>
   </main>
 
-  <!-- Footer -->
-  <footer class="bottom-bar">
+  <!-- Footer (index.html owns this) -->
+  <footer class="bottom-bar" id="main-footer">
     <div class="bottom-left">
       <div class="get-in-touch">Get In Touch</div>
       <a href="contact.html" class="lets-talk">
@@ -469,7 +835,6 @@
         Let's Talk
       </a>
     </div>
-
     <div class="bottom-right social-icons">
       <i class="fab fa-twitter"></i>
       <i class="fab fa-linkedin"></i>
@@ -477,7 +842,7 @@
       <i class="fab fa-instagram"></i>
     </div>
   </footer>
- 
+
   <!-- About Me Tab -->
   <div id="about-tab" class="about-tab">
     <div class="tab-header">
@@ -490,27 +855,67 @@
     </div>
     <div class="tab-content">
       <p>I'm Tushar Borse, from Mumbai, India, with a strong interest in geospatial technology and how it's used to understand and shape the real world. My foundation started early, growing up around maps, instruments, and field discussions my father is a surveyor, and watching him work with surveying and GIS equipment gave me my first exposure to spatial thinking long before I knew the term "GIS."</p>
-
       <p>Seeing how geographic data translated directly into roads, land boundaries, and planning decisions made a lasting impression on me. It showed me that GIS isn't just software or maps on a screen it's a decision-making tool that connects data to real outcomes. That early exposure naturally pushed me toward technology, systems, and eventually geospatial work.</p>
-
       <p>Over time, my focus has grown beyond just tools to understanding how GIS solutions are designed, communicated, and adopted. I'm particularly interested in how complex technical ideas are presented clearly, how systems are evaluated before being implemented, and how good technical decisions can create long-term value. I'm obsessed with learning how geospatial technology can be used not just correctly, but effectively in a way that people trust and rely on.</p>
-
       <p>My goal is to keep building depth in geospatial systems while developing the ability to explain, demonstrate, and shape solutions that make sense in real-world contexts. This site is a place where I explore ideas, document what I learn, and refine how I think about GIS, technology, and impact.</p>
     </div>
   </div>
+
   <div id="education-container"></div>
   <div id="experience-container"></div>
 
+  <!-- Products modals container -->
+  <div id="products-modals"></div>
 
   <script>
-    // Footer show on scroll
+    // ─────────────────────────────────────────────────────────────
+    // FOOTER SCROLL SHOW/HIDE
+    // ─────────────────────────────────────────────────────────────
     const bottomBar = document.querySelector('.bottom-bar');
     window.addEventListener('scroll', () => {
-      if(window.scrollY > 120) bottomBar.classList.add('show');
+      if (window.scrollY > 120) bottomBar.classList.add('show');
       else bottomBar.classList.remove('show');
     });
 
-    // Load part2.html
+    // ─────────────────────────────────────────────────────────────
+    // THEME SWITCHER
+    // ─────────────────────────────────────────────────────────────
+    const navbar   = document.getElementById('main-navbar');
+    const footer   = document.getElementById('main-footer');
+    const navTitle = document.getElementById('nav-title');
+
+    function applyTheme(isLight) {
+      if (isLight) {
+        navbar.classList.add('light-theme');
+        footer.classList.add('light-theme');
+        navTitle.textContent = 'Areas of Interest';
+      } else {
+        navbar.classList.remove('light-theme');
+        footer.classList.remove('light-theme');
+        navTitle.textContent = "Hii, I'm Tushar";
+      }
+    }
+
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function observeProductsSection() {
+      const productsWrapper = document.getElementById('products-wrapper');
+      if (!productsWrapper) return;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => applyTheme(entry.isIntersecting));
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(productsWrapper);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // LOAD part2.html
+    // ─────────────────────────────────────────────────────────────
     fetch('part2.html')
       .then(res => res.text())
       .then(html => {
@@ -518,27 +923,70 @@
         wrapper.innerHTML = html;
         wrapper.querySelectorAll('script').forEach(oldScript => {
           const newScript = document.createElement('script');
-          if(oldScript.src) newScript.src = oldScript.src;
+          if (oldScript.src) newScript.src = oldScript.src;
           else newScript.textContent = oldScript.textContent;
           document.body.appendChild(newScript);
         });
       });
 
-    // ----------------- About Tab Logic -----------------
-    const trigger = document.getElementById('about-trigger');
+    // ─────────────────────────────────────────────────────────────
+    // LOAD products.html
+    // Strategy: parse the HTML, strip navbar/footer, inject only
+    // the body content. Styles are already defined above in <style>.
+    // Scripts get re-executed.
+    // ─────────────────────────────────────────────────────────────
+    fetch('products.html')
+      .then(res => res.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc    = parser.parseFromString(html, 'text/html');
+
+        // 1. Remove products' own navbar, footer, and <style> blocks
+        //    (we've already defined all the needed styles above)
+        doc.querySelectorAll('header.navbar, footer.bottom-bar, style').forEach(el => el.remove());
+
+        // 2. Extract modals (they need to be outside #products-wrapper
+        //    so position:fixed works correctly)
+        const modals = [];
+        doc.querySelectorAll('.modal-overlay').forEach(el => {
+          modals.push(el.outerHTML);
+          el.remove();
+        });
+
+        // 3. Inject body content into wrapper
+        const wrapper = document.getElementById('products-wrapper');
+        wrapper.innerHTML = doc.body.innerHTML;
+
+        // 4. Inject modals into their own container
+        document.getElementById('products-modals').innerHTML = modals.join('');
+
+        // 5. Re-execute scripts from products.html
+        wrapper.querySelectorAll('script').forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+
+        // 6. Start observing for theme switch
+        observeProductsSection();
+      });
+
+    // ─────────────────────────────────────────────────────────────
+    // ABOUT TAB LOGIC
+    // ─────────────────────────────────────────────────────────────
+    const trigger  = document.getElementById('about-trigger');
     const aboutTab = document.getElementById('about-tab');
     const closeBtn = aboutTab.querySelector('.close-btn');
-    const minBtn = aboutTab.querySelector('.min-btn');
-    const maxBtn = aboutTab.querySelector('.max-btn');
-    const header = aboutTab.querySelector('.tab-header');
+    const minBtn   = aboutTab.querySelector('.min-btn');
+    const maxBtn   = aboutTab.querySelector('.max-btn');
+    const header   = aboutTab.querySelector('.tab-header');
 
-    // Open tab
     trigger.addEventListener('click', () => {
       aboutTab.classList.remove('minimized');
       aboutTab.classList.add('show');
     });
 
-    // Close tab
     closeBtn.addEventListener('click', () => {
       aboutTab.classList.remove('show', 'minimized');
       aboutTab.style.width = '';
@@ -548,24 +996,18 @@
       aboutTab.style.transform = '';
     });
 
-    // Minimize tab (shrinks into bar)
-    minBtn.addEventListener('click', () => {
-      aboutTab.classList.add('minimized');
-    });
+    minBtn.addEventListener('click', () => aboutTab.classList.add('minimized'));
 
-    // Maximize tab
     maxBtn.addEventListener('click', () => {
       aboutTab.classList.remove('minimized');
-      aboutTab.style.top = '50%';
-      aboutTab.style.left = '50%';
-      aboutTab.style.width = '95%';
-      aboutTab.style.height = '90%';
+      aboutTab.style.top       = '50%';
+      aboutTab.style.left      = '50%';
+      aboutTab.style.width     = '95%';
+      aboutTab.style.height    = '90%';
       aboutTab.style.transform = 'translate(-50%, -50%)';
     });
 
-    // Drag logic
     let isDragging = false, offsetX = 0, offsetY = 0;
-
     header.addEventListener('mousedown', (e) => {
       isDragging = true;
       const rect = aboutTab.getBoundingClientRect();
@@ -575,205 +1017,153 @@
       header.style.cursor = 'grabbing';
       document.body.style.userSelect = 'none';
     });
-
     window.addEventListener('mousemove', (e) => {
-      if(!isDragging) return;
+      if (!isDragging) return;
       let newLeft = e.clientX - offsetX;
-      let newTop = e.clientY - offsetY;
-      const rect = aboutTab.getBoundingClientRect();
-      const winWidth = window.innerWidth;
-      const winHeight = window.innerHeight;
-      if(newLeft < 0) newLeft = 0;
-      if(newTop < 0) newTop = 0;
-      if(newLeft + rect.width > winWidth) newLeft = winWidth - rect.width;
-      if(newTop + rect.height > winHeight) newTop = winHeight - rect.height;
+      let newTop  = e.clientY - offsetY;
+      const rect  = aboutTab.getBoundingClientRect();
+      if (newLeft < 0) newLeft = 0;
+      if (newTop  < 0) newTop  = 0;
+      if (newLeft + rect.width  > window.innerWidth)  newLeft = window.innerWidth  - rect.width;
+      if (newTop  + rect.height > window.innerHeight) newTop  = window.innerHeight - rect.height;
       aboutTab.style.left = `${newLeft}px`;
-      aboutTab.style.top = `${newTop}px`;
+      aboutTab.style.top  = `${newTop}px`;
     });
-
     window.addEventListener('mouseup', () => {
-      if(!isDragging) return;
+      if (!isDragging) return;
       isDragging = false;
       aboutTab.style.transition = '';
       header.style.cursor = 'grab';
       document.body.style.userSelect = '';
     });
 
-    // ----------------- Load Education Tab -----------------
-fetch('education.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('education-container').innerHTML = html;
-    initEducationTab();
-  });
-  // ----------------- Load Experience Tab -----------------
-fetch('EXP.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('experience-container').innerHTML = html;
-    initExperienceTab();
-  });
+    // ─────────────────────────────────────────────────────────────
+    // LOAD EDUCATION TAB
+    // ─────────────────────────────────────────────────────────────
+    fetch('education.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('education-container').innerHTML = html;
+        initEducationTab();
+      });
 
+    // ─────────────────────────────────────────────────────────────
+    // LOAD EXPERIENCE TAB
+    // ─────────────────────────────────────────────────────────────
+    fetch('EXP.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('experience-container').innerHTML = html;
+        initExperienceTab();
+      });
 
-function initEducationTab() {
-  const eduTrigger = document.getElementById('education-trigger');
-  const eduTab = document.getElementById('education-tab');
-  const aboutTab = document.getElementById('about-tab');
+    function initEducationTab() {
+      const eduTrigger = document.getElementById('education-trigger');
+      const eduTab     = document.getElementById('education-tab');
+      const aboutTab   = document.getElementById('about-tab');
+      if (!eduTrigger || !eduTab) return;
+      const closeBtn = eduTab.querySelector('.close-btn');
+      eduTrigger.addEventListener('click', () => {
+        aboutTab.classList.remove('show', 'minimized');
+        eduTab.classList.add('show');
+      });
+      closeBtn.addEventListener('click', () => {
+        eduTab.classList.remove('show', 'minimized');
+      });
+    }
 
-  const closeBtn = eduTab.querySelector('.close-btn');
+    const waitForEducationTab = setInterval(() => {
+      const eduTab     = document.getElementById('education-tab');
+      const eduTrigger = document.getElementById('education-trigger');
+      const aboutTab   = document.getElementById('about-tab');
+      if (!eduTab || !eduTrigger) return;
+      clearInterval(waitForEducationTab);
 
-  // Open Education (CLOSE ABOUT FIRST)
-  eduTrigger.addEventListener('click', () => {
-    aboutTab.classList.remove('show', 'minimized');
-    eduTab.classList.add('show');
-  });
+      const header   = eduTab.querySelector('.tab-header');
+      const closeBtn = eduTab.querySelector('.close-btn');
+      const minBtn   = eduTab.querySelector('.min-btn');
+      const maxBtn   = eduTab.querySelector('.max-btn');
 
-  // Close Education
-  closeBtn.addEventListener('click', () => {
-    eduTab.classList.remove('show', 'minimized');
-  });
-}
-// ================= EDUCATION TAB ENHANCEMENT (ADD-ON) =================
+      eduTrigger.addEventListener('click', () => {
+        aboutTab.classList.remove('show', 'minimized');
+        eduTab.classList.add('show');
+      });
+      closeBtn.addEventListener('click', () => { eduTab.classList.remove('show', 'minimized'); eduTab.style = ''; });
+      minBtn.addEventListener('click', () => eduTab.classList.add('minimized'));
+      maxBtn.addEventListener('click', () => {
+        eduTab.classList.remove('minimized');
+        eduTab.style.top = '50%'; eduTab.style.left = '50%';
+        eduTab.style.width = '95%'; eduTab.style.height = '90%';
+        eduTab.style.transform = 'translate(-50%, -50%)';
+      });
 
-// Wait until education.html is loaded
-const waitForEducationTab = setInterval(() => {
-  const eduTab = document.getElementById('education-tab');
-  const eduTrigger = document.getElementById('education-trigger');
-  const aboutTab = document.getElementById('about-tab');
+      let isDragging = false, offsetX = 0, offsetY = 0;
+      header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        const rect = eduTab.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        eduTab.style.transition = 'none';
+        document.body.style.userSelect = 'none';
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        eduTab.style.left = `${e.clientX - offsetX}px`;
+        eduTab.style.top  = `${e.clientY - offsetY}px`;
+      });
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+        eduTab.style.transition = '';
+        document.body.style.userSelect = '';
+      });
+    }, 100);
 
-  if (!eduTab || !eduTrigger) return;
+    function initExperienceTab() {
+      const expTrigger = document.getElementById('experience-trigger');
+      const expTab     = document.getElementById('experience-tab');
+      const aboutTab   = document.getElementById('about-tab');
+      const eduTab     = document.getElementById('education-tab');
+      if (!expTrigger || !expTab) return;
 
-  clearInterval(waitForEducationTab);
+      const header   = expTab.querySelector('.tab-header');
+      const closeBtn = expTab.querySelector('.close-btn');
+      const minBtn   = expTab.querySelector('.min-btn');
+      const maxBtn   = expTab.querySelector('.max-btn');
 
-  const header = eduTab.querySelector('.tab-header');
-  const closeBtn = eduTab.querySelector('.close-btn');
-  const minBtn = eduTab.querySelector('.min-btn');
-  const maxBtn = eduTab.querySelector('.max-btn');
+      expTrigger.addEventListener('click', () => {
+        aboutTab.classList.remove('show', 'minimized');
+        if (eduTab) eduTab.classList.remove('show', 'minimized');
+        expTab.classList.add('show');
+      });
+      closeBtn.addEventListener('click', () => { expTab.classList.remove('show', 'minimized'); expTab.style = ''; });
+      minBtn.addEventListener('click', () => expTab.classList.add('minimized'));
+      maxBtn.addEventListener('click', () => {
+        expTab.classList.remove('minimized');
+        expTab.style.top = '50%'; expTab.style.left = '50%';
+        expTab.style.width = '95%'; expTab.style.height = '90%';
+        expTab.style.transform = 'translate(-50%, -50%)';
+      });
 
-  // ---- OPEN EDUCATION (CLOSE ABOUT) ----
-  eduTrigger.addEventListener('click', () => {
-    aboutTab.classList.remove('show', 'minimized');
-    eduTab.classList.add('show');
-  });
-
-  // ---- CLOSE ----
-  closeBtn.addEventListener('click', () => {
-    eduTab.classList.remove('show', 'minimized');
-    eduTab.style = '';
-  });
-
-  // ---- MINIMIZE ----
-  minBtn.addEventListener('click', () => {
-    eduTab.classList.add('minimized');
-  });
-
-  // ---- MAXIMIZE ----
-  maxBtn.addEventListener('click', () => {
-    eduTab.classList.remove('minimized');
-    eduTab.style.top = '50%';
-    eduTab.style.left = '50%';
-    eduTab.style.width = '95%';
-    eduTab.style.height = '90%';
-    eduTab.style.transform = 'translate(-50%, -50%)';
-  });
-
-  // ---- DRAG SUPPORT ----
-  let isDragging = false;
-  let offsetX = 0;
-  let offsetY = 0;
-
-  header.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    const rect = eduTab.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    eduTab.style.transition = 'none';
-    document.body.style.userSelect = 'none';
-  });
-
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    eduTab.style.left = `${e.clientX - offsetX}px`;
-    eduTab.style.top = `${e.clientY - offsetY}px`;
-  });
-
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-    eduTab.style.transition = '';
-    document.body.style.userSelect = '';
-  });
-
-}, 100);
-// ================= EXPERIENCE TAB LOGIC =================
-function initExperienceTab() {
-  const expTrigger = document.getElementById('experience-trigger');
-  const expTab = document.getElementById('experience-tab');
-  const aboutTab = document.getElementById('about-tab');
-  const eduTab = document.getElementById('education-tab');
-
-  if (!expTrigger || !expTab) return;
-
-  const header = expTab.querySelector('.tab-header');
-  const closeBtn = expTab.querySelector('.close-btn');
-  const minBtn = expTab.querySelector('.min-btn');
-  const maxBtn = expTab.querySelector('.max-btn');
-
-  // ---- OPEN EXPERIENCE (CLOSE OTHERS) ----
-  expTrigger.addEventListener('click', () => {
-    aboutTab.classList.remove('show', 'minimized');
-    eduTab.classList.remove('show', 'minimized');
-    expTab.classList.add('show');
-  });
-
-  // ---- CLOSE ----
-  closeBtn.addEventListener('click', () => {
-    expTab.classList.remove('show', 'minimized');
-    expTab.style = '';
-  });
-
-  // ---- MINIMIZE ----
-  minBtn.addEventListener('click', () => {
-    expTab.classList.add('minimized');
-  });
-
-  // ---- MAXIMIZE ----
-  maxBtn.addEventListener('click', () => {
-    expTab.classList.remove('minimized');
-    expTab.style.top = '50%';
-    expTab.style.left = '50%';
-    expTab.style.width = '95%';
-    expTab.style.height = '90%';
-    expTab.style.transform = 'translate(-50%, -50%)';
-  });
-
-  // ---- DRAG SUPPORT ----
-  let isDragging = false;
-  let offsetX = 0;
-  let offsetY = 0;
-
-  header.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    const rect = expTab.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    expTab.style.transition = 'none';
-    document.body.style.userSelect = 'none';
-  });
-
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    expTab.style.left = `${e.clientX - offsetX}px`;
-    expTab.style.top = `${e.clientY - offsetY}px`;
-  });
-
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-    expTab.style.transition = '';
-    document.body.style.userSelect = '';
-  });
-}
-
-
+      let isDragging = false, offsetX = 0, offsetY = 0;
+      header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        const rect = expTab.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        expTab.style.transition = 'none';
+        document.body.style.userSelect = 'none';
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        expTab.style.left = `${e.clientX - offsetX}px`;
+        expTab.style.top  = `${e.clientY - offsetY}px`;
+      });
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+        expTab.style.transition = '';
+        document.body.style.userSelect = '';
+      });
+    }
   </script>
 
 </body>
