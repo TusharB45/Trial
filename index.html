@@ -960,13 +960,20 @@
         // 4. Inject modals into their own container
         document.getElementById('products-modals').innerHTML = modals.join('');
 
-        // 5. Re-execute scripts from products.html
-        wrapper.querySelectorAll('script').forEach(oldScript => {
-          const newScript = document.createElement('script');
-          if (oldScript.src) newScript.src = oldScript.src;
-          else newScript.textContent = oldScript.textContent;
-          document.body.appendChild(newScript);
-        });
+      // 5. Re-execute scripts from products.html (fix variable conflicts)
+      wrapper.querySelectorAll('script').forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          // Rename conflicting variables so they don't clash with index.html
+          let code = oldScript.textContent;
+          code = code.replace(/const bottomBar/g, 'const productsBottomBar');
+          code = code.replace(/bottomBar\b/g, 'productsBottomBar');
+          newScript.textContent = code;
+        }
+        document.body.appendChild(newScript);
+      });
 
         // 6. Start observing for theme switch
         observeProductsSection();
