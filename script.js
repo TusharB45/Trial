@@ -1,12 +1,17 @@
+// ==============================
 // --- Initialize EmailJS ---
+// ==============================
 (function () {
-  emailjs.init("V8DDD_4ceglL0pCO2"); // <-- Replace with your EmailJS public key
+  emailjs.init("V8DDD_4ceglL0pCO2"); // <-- Replace with YOUR EmailJS public key
 })();
 
-// --- Contact Form JS (EmailJS Working Version) ---
+// ==============================
+// --- Contact Form Submission ---
+// ==============================
 document.getElementById("contactForm")?.addEventListener("submit", function (e) {
   e.preventDefault();
 
+  // --- Get values from the form ---
   const firstName = document.getElementById("firstName")?.value.trim() || "";
   const lastName = document.getElementById("lastName")?.value.trim() || "";
   const email = document.getElementById("email")?.value.trim() || "";
@@ -14,7 +19,7 @@ document.getElementById("contactForm")?.addEventListener("submit", function (e) 
   const subject = document.getElementById("subject")?.value.trim() || "";
   const message = document.getElementById("message")?.value.trim() || "";
 
-  // Validation for required fields
+  // --- Validation for required fields ---
   const requiredFields = [
     { id: "lastName", value: lastName },
     { id: "email", value: email },
@@ -26,14 +31,14 @@ document.getElementById("contactForm")?.addEventListener("submit", function (e) 
   requiredFields.forEach(field => {
     const el = document.getElementById(field.id);
     if (!field.value) {
-      el.style.borderColor = "#ff4444";
+      el.style.borderColor = "#ff4444"; // Red for errors
       valid = false;
     } else {
-      el.style.borderColor = "#28a745";
+      el.style.borderColor = "#28a745"; // Green if filled
     }
   });
 
-  // Email format validation
+  // --- Email format validation ---
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (email && !emailRegex.test(email)) {
     document.getElementById("email").style.borderColor = "#ff4444";
@@ -41,6 +46,7 @@ document.getElementById("contactForm")?.addEventListener("submit", function (e) 
   }
 
   if (!valid) {
+    // Scroll to first error field
     const firstError = document.querySelector(
       'input[style*="border-color: rgb(255, 68, 68)"], textarea[style*="border-color: rgb(255, 68, 68)"]'
     );
@@ -48,7 +54,7 @@ document.getElementById("contactForm")?.addEventListener("submit", function (e) 
     return;
   }
 
-  // Prepare template parameters
+  // --- Prepare EmailJS template parameters ---
   const templateParams = {
     from_name: `${firstName} ${lastName}`,
     from_email: email,
@@ -57,15 +63,17 @@ document.getElementById("contactForm")?.addEventListener("submit", function (e) 
     message: message
   };
 
-  // Send email using EmailJS
+  // --- Send email using EmailJS ---
   emailjs.send(
-    "service_r5pnz4h",   // <-- Replace with your EmailJS service ID
-    "template_gxwgq85",  // <-- Replace with your EmailJS template ID
+    "service_r5pnz4h",   // <-- Replace with YOUR EmailJS service ID
+    "template_gxwgq85",  // <-- Replace with YOUR EmailJS template ID
     templateParams
   )
   .then(() => {
     const successMessage = document.getElementById("successMessage");
     successMessage.classList.add("show");
+
+    // Reset the form
     document.getElementById("contactForm").reset();
 
     // Reset border colors
@@ -73,6 +81,7 @@ document.getElementById("contactForm")?.addEventListener("submit", function (e) 
       document.getElementById(id).style.borderColor = "#ddd";
     });
 
+    // Hide success message after 5 seconds
     setTimeout(() => {
       successMessage.classList.remove("show");
     }, 5000);
@@ -83,14 +92,16 @@ document.getElementById("contactForm")?.addEventListener("submit", function (e) 
   });
 });
 
-// Reset border color on input
+// --- Reset border color on input ---
 document.querySelectorAll('input, textarea').forEach(element => {
   element.addEventListener('input', function() {
     this.style.borderColor = '#ddd';
   });
 });
 
-// --- Globe JS ---
+// ==============================
+// --- Globe JS (Optional) ---
+// ==============================
 const tooltip = document.getElementById('tooltip');
 
 const myGlobe = Globe()(document.getElementById('globeViz'))
